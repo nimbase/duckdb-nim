@@ -16,10 +16,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4QQQEwksSS9ZWwAAAk1JREFUWMPtll2ITVEUx39nn/O7Y5qR8f05wtCUUr6ZIS++8pEnkZInPImneaCQ5METNdOkeFBKUhMPRIkHKfEuUZSUlGlKPN2TrgfncpvmnntnmlEyq1Z7t89/rf9a6+y99oZxGZf/XeIq61EdtgKXgdXA0xrYAvBjOIF1AI9zvjcC74BSpndrJPkBWDScTF8Aa4E3wDlgHbASaANmVqlcCnwHvgDvgVfAJ+AikAAvgfVZwLnSVZHZaOuKoQi3ZOMi4NkYkpe1p4J7A8BpYAD49hfIy/oqG0+hLomiKP2L5L+1ubn5115S+3OAn4EnwBlgMzCjyt6ZAnQCJ4A7wOs88iRJHvw50HoujuPBoCKwHWiosy8MdfZnAdcHk8dxXFJ3VQbQlCTJvRBCGdRbD4M6uc5glpY3eAihpN5S5w12diSEcCCEcKUO4ljdr15T76ur1FDDLIQQ3qv71EdDOe3Kxj3leRXyk+pxdWnFWod6Wt2bY3de3aSuUHcPBVimHs7mK9WrmeOF6lR1o9qnzskh2ar2qm1qizpfXaPeVGdlmGN5pb09qMxz1Xb1kLqgzn1RyH7JUXW52lr5e/Kqi9qpto7V1atuUzfnARrV7jEib1T76gG2qxdGmXyiekkt1GswPTtek0aBfJp6YySGBfWg2tPQ0FAYgf1stUfdmdcjarbYJEniKIq6gY/Aw+zWHAC+p2labGpqiorFYgGYCEzN7oQdQClN07O1/EfDyGgC0ALMBdYAi4FyK+4H3gLPsxfR1zRNi+NP7nH5J+QntnXe5B5mpfQAAAAASUVORK5CYII=">
 
 <!-- CSS -->
-<link rel="stylesheet" type="text/css" href="../nimdoc.out.css?v=2.2.10">
+<link rel="stylesheet" type="text/css" href="../nimdoc.out.css?v=2.2.12">
 
 <!-- JS -->
-<script type="text/javascript" src="../dochack.js?v=2.2.10"></script>
+<script type="text/javascript" src="../dochack.js?v=2.2.12"></script>
 </head>
 <body>
   <div class="document" id="documentId">
@@ -58,108 +58,166 @@
   <details open>
     <summary><a class="reference reference-toplevel" href="#7" id="57">Types</a></summary>
     <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#duckdb_aggregate_combine_t" title="duckdb_aggregate_combine_t = proc () {.cdecl.}">duckdb_aggregate_combine_t</a></li>
-<li><a class="reference" href="#duckdb_aggregate_destroy_t" title="duckdb_aggregate_destroy_t = proc (p: pointer) {.cdecl.}">duckdb_aggregate_destroy_t</a></li>
-<li><a class="reference" href="#duckdb_aggregate_finalize_t" title="duckdb_aggregate_finalize_t = proc () {.cdecl.}">duckdb_aggregate_finalize_t</a></li>
-<li><a class="reference" href="#duckdb_aggregate_function" title="duckdb_aggregate_function = pointer">duckdb_aggregate_function</a></li>
-<li><a class="reference" href="#duckdb_aggregate_function_set" title="duckdb_aggregate_function_set = pointer">duckdb_aggregate_function_set</a></li>
-<li><a class="reference" href="#duckdb_aggregate_init_t" title="duckdb_aggregate_init_t = proc () {.cdecl.}">duckdb_aggregate_init_t</a></li>
-<li><a class="reference" href="#duckdb_aggregate_state_size" title="duckdb_aggregate_state_size = proc (): csize_t {.cdecl.}">duckdb_aggregate_state_size</a></li>
-<li><a class="reference" href="#duckdb_aggregate_update_t" title="duckdb_aggregate_update_t = proc () {.cdecl.}">duckdb_aggregate_update_t</a></li>
-<li><a class="reference" href="#duckdb_appender" title="duckdb_appender = pointer">duckdb_appender</a></li>
-<li><a class="reference" href="#duckdb_arrow" title="duckdb_arrow = pointer">duckdb_arrow</a></li>
-<li><a class="reference" href="#duckdb_arrow_array" title="duckdb_arrow_array = pointer">duckdb_arrow_array</a></li>
-<li><a class="reference" href="#duckdb_arrow_schema" title="duckdb_arrow_schema = pointer">duckdb_arrow_schema</a></li>
-<li><a class="reference" href="#duckdb_arrow_stream" title="duckdb_arrow_stream = pointer">duckdb_arrow_stream</a></li>
-<li><a class="reference" href="#duckdb_bind_info" title="duckdb_bind_info = pointer">duckdb_bind_info</a></li>
-<li><a class="reference" href="#duckdb_bit" title="duckdb_bit = uint8">duckdb_bit</a></li>
-<li><a class="reference" href="#duckdb_blob" title="duckdb_blob {.bycopy.} = object
+      <li><a class="reference" href="#duckdb_aggregate_combine_t" title="duckdb_aggregate_combine_t = proc (info: duckdb_function_info;
+                                   source: ptr duckdb_aggregate_state;
+                                   target: ptr duckdb_aggregate_state;
+                                   count: idx_t) {.cdecl.}">duckdb_aggregate_combine_t</a></li>
+<li><a class="reference" href="#duckdb_aggregate_destroy_t" title="duckdb_aggregate_destroy_t = proc (states: ptr duckdb_aggregate_state;
+                                   count: idx_t) {.cdecl.}">duckdb_aggregate_destroy_t</a></li>
+<li><a class="reference" href="#duckdb_aggregate_finalize_t" title="duckdb_aggregate_finalize_t = proc (info: duckdb_function_info;
+                                    source: ptr duckdb_aggregate_state;
+                                    result: duckdb_vector; count: idx_t;
+                                    offset: idx_t) {.cdecl.}">duckdb_aggregate_finalize_t</a></li>
+<li><a class="reference" href="#duckdb_aggregate_function" title="duckdb_aggregate_function {.importc: &quot;duckdb_aggregate_function&quot;,
+                            header: &quot;duckdb.h&quot;.} = object">duckdb_aggregate_function</a></li>
+<li><a class="reference" href="#duckdb_aggregate_function_set" title="duckdb_aggregate_function_set {.importc: &quot;duckdb_aggregate_function_set&quot;,
+                                header: &quot;duckdb.h&quot;.} = object">duckdb_aggregate_function_set</a></li>
+<li><a class="reference" href="#duckdb_aggregate_init_t" title="duckdb_aggregate_init_t = proc (info: duckdb_function_info;
+                                state: duckdb_aggregate_state) {.cdecl.}">duckdb_aggregate_init_t</a></li>
+<li><a class="reference" href="#duckdb_aggregate_state" title="duckdb_aggregate_state {.importc: &quot;duckdb_aggregate_state&quot;, header: &quot;duckdb.h&quot;.} = object">duckdb_aggregate_state</a></li>
+<li><a class="reference" href="#duckdb_aggregate_state_size" title="duckdb_aggregate_state_size = proc (info: duckdb_function_info): idx_t {.cdecl.}">duckdb_aggregate_state_size</a></li>
+<li><a class="reference" href="#duckdb_aggregate_update_t" title="duckdb_aggregate_update_t = proc (info: duckdb_function_info;
+                                  input: duckdb_data_chunk;
+                                  states: ptr duckdb_aggregate_state) {.cdecl.}">duckdb_aggregate_update_t</a></li>
+<li><a class="reference" href="#duckdb_appender" title="duckdb_appender {.importc: &quot;duckdb_appender&quot;, header: &quot;duckdb.h&quot;.} = object">duckdb_appender</a></li>
+<li><a class="reference" href="#duckdb_arrow" title="duckdb_arrow {.importc: &quot;duckdb_arrow&quot;, header: &quot;duckdb.h&quot;.} = object">duckdb_arrow</a></li>
+<li><a class="reference" href="#duckdb_arrow_array" title="duckdb_arrow_array {.importc: &quot;duckdb_arrow_array&quot;, header: &quot;duckdb.h&quot;.} = object">duckdb_arrow_array</a></li>
+<li><a class="reference" href="#duckdb_arrow_schema" title="duckdb_arrow_schema {.importc: &quot;duckdb_arrow_schema&quot;, header: &quot;duckdb.h&quot;.} = object">duckdb_arrow_schema</a></li>
+<li><a class="reference" href="#duckdb_arrow_stream" title="duckdb_arrow_stream {.importc: &quot;duckdb_arrow_stream&quot;, header: &quot;duckdb.h&quot;.} = object">duckdb_arrow_stream</a></li>
+<li><a class="reference" href="#duckdb_bignum" title="duckdb_bignum {.importc: &quot;duckdb_bignum&quot;, header: &quot;duckdb.h&quot;, bycopy.} = object
+  data*: ptr uint8
+  size*: idx_t
+  is_negative*: bool">duckdb_bignum</a></li>
+<li><a class="reference" href="#duckdb_bind_info" title="duckdb_bind_info {.importc: &quot;duckdb_bind_info&quot;, header: &quot;duckdb.h&quot;.} = object">duckdb_bind_info</a></li>
+<li><a class="reference" href="#duckdb_bit" title="duckdb_bit {.importc: &quot;duckdb_bit&quot;, header: &quot;duckdb.h&quot;, bycopy.} = object
+  data*: ptr uint8
+  size*: idx_t">duckdb_bit</a></li>
+<li><a class="reference" href="#duckdb_blob" title="duckdb_blob {.importc: &quot;duckdb_blob&quot;, header: &quot;duckdb.h&quot;, bycopy.} = object
   data*: pointer
   size*: uint64">duckdb_blob</a></li>
-<li><a class="reference" href="#duckdb_cast_function" title="duckdb_cast_function = pointer">duckdb_cast_function</a></li>
-<li><a class="reference" href="#duckdb_cast_function_t" title="duckdb_cast_function_t = proc () {.cdecl.}">duckdb_cast_function_t</a></li>
+<li><a class="reference" href="#duckdb_cast_function" title="duckdb_cast_function {.importc: &quot;duckdb_cast_function&quot;, header: &quot;duckdb.h&quot;.} = object">duckdb_cast_function</a></li>
+<li><a class="reference" href="#duckdb_cast_function_t" title="duckdb_cast_function_t = proc (info: duckdb_function_info; count: idx_t;
+                               input: duckdb_vector; output: duckdb_vector): bool {.
+    cdecl.}">duckdb_cast_function_t</a></li>
 <li><a class="reference" href="#duckdb_cast_mode" title="duckdb_cast_mode = cint">duckdb_cast_mode</a></li>
-<li><a class="reference" href="#duckdb_client_context" title="duckdb_client_context = pointer">duckdb_client_context</a></li>
-<li><a class="reference" href="#duckdb_config" title="duckdb_config = pointer">duckdb_config</a></li>
-<li><a class="reference" href="#duckdb_connection" title="duckdb_connection = pointer">duckdb_connection</a></li>
-<li><a class="reference" href="#duckdb_data_chunk" title="duckdb_data_chunk = pointer">duckdb_data_chunk</a></li>
-<li><a class="reference" href="#duckdb_database" title="duckdb_database = pointer">duckdb_database</a></li>
-<li><a class="reference" href="#duckdb_date" title="duckdb_date = int32">duckdb_date</a></li>
-<li><a class="reference" href="#duckdb_date_struct" title="duckdb_date_struct = object
+<li><a class="reference" href="#duckdb_client_context" title="duckdb_client_context {.importc: &quot;duckdb_client_context&quot;, header: &quot;duckdb.h&quot;.} = object">duckdb_client_context</a></li>
+<li><a class="reference" href="#duckdb_column" title="duckdb_column {.importc: &quot;duckdb_column&quot;, header: &quot;duckdb.h&quot;, bycopy.} = object
+  deprecated_data*: pointer
+  deprecated_nullmask*: ptr bool
+  deprecated_type*: duckdb_type
+  deprecated_name*: cstring
+  internal_data*: pointer">duckdb_column</a></li>
+<li><a class="reference" href="#duckdb_config" title="duckdb_config {.importc: &quot;duckdb_config&quot;, header: &quot;duckdb.h&quot;.} = object">duckdb_config</a></li>
+<li><a class="reference" href="#duckdb_connection" title="duckdb_connection {.importc: &quot;duckdb_connection&quot;, header: &quot;duckdb.h&quot;.} = object">duckdb_connection</a></li>
+<li><a class="reference" href="#duckdb_copy_callback_t" title="duckdb_copy_callback_t = proc (p: pointer): pointer {.cdecl.}">duckdb_copy_callback_t</a></li>
+<li><a class="reference" href="#duckdb_data_chunk" title="duckdb_data_chunk {.importc: &quot;duckdb_data_chunk&quot;, header: &quot;duckdb.h&quot;.} = object">duckdb_data_chunk</a></li>
+<li><a class="reference" href="#duckdb_database" title="duckdb_database {.importc: &quot;duckdb_database&quot;, header: &quot;duckdb.h&quot;.} = object">duckdb_database</a></li>
+<li><a class="reference" href="#duckdb_date" title="duckdb_date {.importc: &quot;duckdb_date&quot;, header: &quot;duckdb.h&quot;, bycopy.} = object
+  days*: int32">duckdb_date</a></li>
+<li><a class="reference" href="#duckdb_date_struct" title="duckdb_date_struct {.importc: &quot;duckdb_date_struct&quot;, header: &quot;duckdb.h&quot;, bycopy.} = object
   year*: int32
   month*: int8
   day*: int8">duckdb_date_struct</a></li>
-<li><a class="reference" href="#duckdb_decimal" title="duckdb_decimal {.bycopy.} = object
-  value*: duckdb_hugeint
+<li><a class="reference" href="#duckdb_decimal" title="duckdb_decimal {.importc: &quot;duckdb_decimal&quot;, header: &quot;duckdb.h&quot;, bycopy.} = object
   width*: uint8
-  scale*: uint8">duckdb_decimal</a></li>
+  scale*: uint8
+  value*: duckdb_hugeint">duckdb_decimal</a></li>
 <li><a class="reference" href="#duckdb_delete_callback_t" title="duckdb_delete_callback_t = proc (p: pointer) {.cdecl.}">duckdb_delete_callback_t</a></li>
 <li><a class="reference" href="#duckdb_error_type" title="duckdb_error_type = cint">duckdb_error_type</a></li>
-<li><a class="reference" href="#duckdb_extracted_statements" title="duckdb_extracted_statements = pointer">duckdb_extracted_statements</a></li>
-<li><a class="reference" href="#duckdb_function_info" title="duckdb_function_info = pointer">duckdb_function_info</a></li>
-<li><a class="reference" href="#duckdb_hugeint" title="duckdb_hugeint {.bycopy.} = object
+<li><a class="reference" href="#duckdb_extracted_statements" title="duckdb_extracted_statements {.importc: &quot;duckdb_extracted_statements&quot;,
+                              header: &quot;duckdb.h&quot;.} = object">duckdb_extracted_statements</a></li>
+<li><a class="reference" href="#duckdb_function_info" title="duckdb_function_info {.importc: &quot;duckdb_function_info&quot;, header: &quot;duckdb.h&quot;.} = object">duckdb_function_info</a></li>
+<li><a class="reference" href="#duckdb_hugeint" title="duckdb_hugeint {.importc: &quot;duckdb_hugeint&quot;, header: &quot;duckdb.h&quot;, bycopy.} = object
   lower*: uint64
   upper*: int64">duckdb_hugeint</a></li>
-<li><a class="reference" href="#duckdb_init_info" title="duckdb_init_info = pointer">duckdb_init_info</a></li>
-<li><a class="reference" href="#duckdb_instance_cache" title="duckdb_instance_cache = pointer">duckdb_instance_cache</a></li>
-<li><a class="reference" href="#duckdb_interval" title="duckdb_interval {.bycopy.} = object
+<li><a class="reference" href="#duckdb_init_info" title="duckdb_init_info {.importc: &quot;duckdb_init_info&quot;, header: &quot;duckdb.h&quot;.} = object">duckdb_init_info</a></li>
+<li><a class="reference" href="#duckdb_instance_cache" title="duckdb_instance_cache {.importc: &quot;duckdb_instance_cache&quot;, header: &quot;duckdb.h&quot;.} = object">duckdb_instance_cache</a></li>
+<li><a class="reference" href="#duckdb_interval" title="duckdb_interval {.importc: &quot;duckdb_interval&quot;, header: &quot;duckdb.h&quot;, bycopy.} = object
   months*: int32
   days*: int32
   micros*: int64">duckdb_interval</a></li>
-<li><a class="reference" href="#duckdb_logical_type" title="duckdb_logical_type = pointer">duckdb_logical_type</a></li>
-<li><a class="reference" href="#duckdb_pending_result" title="duckdb_pending_result = pointer">duckdb_pending_result</a></li>
+<li><a class="reference" href="#duckdb_logical_type" title="duckdb_logical_type {.importc: &quot;duckdb_logical_type&quot;, header: &quot;duckdb.h&quot;.} = object">duckdb_logical_type</a></li>
+<li><a class="reference" href="#duckdb_pending_result" title="duckdb_pending_result {.importc: &quot;duckdb_pending_result&quot;, header: &quot;duckdb.h&quot;.} = object">duckdb_pending_result</a></li>
 <li><a class="reference" href="#duckdb_pending_state" title="duckdb_pending_state = cint">duckdb_pending_state</a></li>
-<li><a class="reference" href="#duckdb_prepared_statement" title="duckdb_prepared_statement = pointer">duckdb_prepared_statement</a></li>
-<li><a class="reference" href="#duckdb_profiling_info" title="duckdb_profiling_info = pointer">duckdb_profiling_info</a></li>
-<li><a class="reference" href="#duckdb_query_progress_type" title="duckdb_query_progress_type = cint">duckdb_query_progress_type</a></li>
-<li><a class="reference" href="#duckdb_replacement_callback_t" title="duckdb_replacement_callback_t = proc (db: duckdb_database;
-                                      info: duckdb_replacement_scan_info;
-                                      extra_data: pointer) {.cdecl.}">duckdb_replacement_callback_t</a></li>
-<li><a class="reference" href="#duckdb_replacement_scan_info" title="duckdb_replacement_scan_info = pointer">duckdb_replacement_scan_info</a></li>
-<li><a class="reference" href="#duckdb_result" title="duckdb_result {.bycopy.} = object">duckdb_result</a></li>
+<li><a class="reference" href="#duckdb_prepared_statement" title="duckdb_prepared_statement {.importc: &quot;duckdb_prepared_statement&quot;,
+                            header: &quot;duckdb.h&quot;.} = object">duckdb_prepared_statement</a></li>
+<li><a class="reference" href="#duckdb_profiling_info" title="duckdb_profiling_info {.importc: &quot;duckdb_profiling_info&quot;, header: &quot;duckdb.h&quot;.} = object">duckdb_profiling_info</a></li>
+<li><a class="reference" href="#duckdb_query_progress_type" title="duckdb_query_progress_type {.importc: &quot;duckdb_query_progress_type&quot;,
+                             header: &quot;duckdb.h&quot;, bycopy.} = object
+  percentage*: float64
+  rows_processed*: uint64
+  total_rows_to_process*: uint64">duckdb_query_progress_type</a></li>
+<li><a class="reference" href="#duckdb_replacement_callback_t" title="duckdb_replacement_callback_t = proc (info: duckdb_replacement_scan_info;
+                                      table_name: cstring; data: pointer) {.
+    cdecl.}">duckdb_replacement_callback_t</a></li>
+<li><a class="reference" href="#duckdb_replacement_scan_info" title="duckdb_replacement_scan_info {.importc: &quot;duckdb_replacement_scan_info&quot;,
+                               header: &quot;duckdb.h&quot;.} = object">duckdb_replacement_scan_info</a></li>
+<li><a class="reference" href="#duckdb_result" title="duckdb_result {.importc: &quot;duckdb_result&quot;, header: &quot;duckdb.h&quot;, bycopy.} = object
+  deprecated_column_count*: idx_t
+  deprecated_row_count*: idx_t
+  deprecated_rows_changed*: idx_t
+  deprecated_columns*: ptr duckdb_column
+  deprecated_error_message*: cstring
+  internal_data*: pointer">duckdb_result</a></li>
 <li><a class="reference" href="#duckdb_result_type" title="duckdb_result_type = cint">duckdb_result_type</a></li>
-<li><a class="reference" href="#duckdb_scalar_function" title="duckdb_scalar_function = pointer">duckdb_scalar_function</a></li>
+<li><a class="reference" href="#duckdb_scalar_function" title="duckdb_scalar_function {.importc: &quot;duckdb_scalar_function&quot;, header: &quot;duckdb.h&quot;.} = object">duckdb_scalar_function</a></li>
 <li><a class="reference" href="#duckdb_scalar_function_bind_t" title="duckdb_scalar_function_bind_t = proc (info: duckdb_bind_info) {.cdecl.}">duckdb_scalar_function_bind_t</a></li>
-<li><a class="reference" href="#duckdb_scalar_function_set" title="duckdb_scalar_function_set = pointer">duckdb_scalar_function_set</a></li>
-<li><a class="reference" href="#duckdb_scalar_function_t" title="duckdb_scalar_function_t = proc (info: duckdb_function_info) {.cdecl.}">duckdb_scalar_function_t</a></li>
-<li><a class="reference" href="#duckdb_selection_vector" title="duckdb_selection_vector = pointer">duckdb_selection_vector</a></li>
+<li><a class="reference" href="#duckdb_scalar_function_init_t" title="duckdb_scalar_function_init_t = proc (info: duckdb_init_info) {.cdecl.}">duckdb_scalar_function_init_t</a></li>
+<li><a class="reference" href="#duckdb_scalar_function_set" title="duckdb_scalar_function_set {.importc: &quot;duckdb_scalar_function_set&quot;,
+                             header: &quot;duckdb.h&quot;.} = object">duckdb_scalar_function_set</a></li>
+<li><a class="reference" href="#duckdb_scalar_function_t" title="duckdb_scalar_function_t = proc (info: duckdb_function_info;
+                                 input: duckdb_data_chunk; output: duckdb_vector) {.
+    cdecl.}">duckdb_scalar_function_t</a></li>
+<li><a class="reference" href="#duckdb_selection_vector" title="duckdb_selection_vector {.importc: &quot;duckdb_selection_vector&quot;, header: &quot;duckdb.h&quot;.} = object">duckdb_selection_vector</a></li>
 <li><a class="reference" href="#duckdb_state" title="duckdb_state = cint">duckdb_state</a></li>
 <li><a class="reference" href="#duckdb_statement_type" title="duckdb_statement_type = cint">duckdb_statement_type</a></li>
-<li><a class="reference" href="#duckdb_string" title="duckdb_string {.bycopy.} = object
+<li><a class="reference" href="#duckdb_string" title="duckdb_string {.importc: &quot;duckdb_string&quot;, header: &quot;duckdb.h&quot;, bycopy.} = object
   data*: cstring
   size*: uint32">duckdb_string</a></li>
-<li><a class="reference" href="#duckdb_string_t" title="duckdb_string_t = object
-  data*: array[12, byte]">duckdb_string_t</a></li>
-<li><a class="reference" href="#duckdb_table_description" title="duckdb_table_description = pointer">duckdb_table_description</a></li>
-<li><a class="reference" href="#duckdb_table_function" title="duckdb_table_function = pointer">duckdb_table_function</a></li>
+<li><a class="reference" href="#duckdb_string_t" title="duckdb_string_t {.importc: &quot;duckdb_string_t&quot;, header: &quot;duckdb.h&quot;, bycopy.} = object
+  data*: array[16, byte]">duckdb_string_t</a></li>
+<li><a class="reference" href="#duckdb_table_description" title="duckdb_table_description {.importc: &quot;duckdb_table_description&quot;,
+                           header: &quot;duckdb.h&quot;.} = object">duckdb_table_description</a></li>
+<li><a class="reference" href="#duckdb_table_function" title="duckdb_table_function {.importc: &quot;duckdb_table_function&quot;, header: &quot;duckdb.h&quot;.} = object">duckdb_table_function</a></li>
+<li><a class="reference" href="#duckdb_table_function_bind_t" title="duckdb_table_function_bind_t = proc (info: duckdb_bind_info) {.cdecl.}">duckdb_table_function_bind_t</a></li>
+<li><a class="reference" href="#duckdb_table_function_init_t" title="duckdb_table_function_init_t = proc (info: duckdb_init_info) {.cdecl.}">duckdb_table_function_init_t</a></li>
+<li><a class="reference" href="#duckdb_table_function_t" title="duckdb_table_function_t = proc (info: duckdb_function_info;
+                                output: duckdb_data_chunk) {.cdecl.}">duckdb_table_function_t</a></li>
 <li><a class="reference" href="#duckdb_task_state" title="duckdb_task_state = pointer">duckdb_task_state</a></li>
-<li><a class="reference" href="#duckdb_time" title="duckdb_time = int64">duckdb_time</a></li>
-<li><a class="reference" href="#duckdb_time_struct" title="duckdb_time_struct = object
+<li><a class="reference" href="#duckdb_time" title="duckdb_time {.importc: &quot;duckdb_time&quot;, header: &quot;duckdb.h&quot;, bycopy.} = object
+  micros*: int64">duckdb_time</a></li>
+<li><a class="reference" href="#duckdb_time_ns" title="duckdb_time_ns {.importc: &quot;duckdb_time_ns&quot;, header: &quot;duckdb.h&quot;, bycopy.} = object
+  nanos*: int64">duckdb_time_ns</a></li>
+<li><a class="reference" href="#duckdb_time_struct" title="duckdb_time_struct {.importc: &quot;duckdb_time_struct&quot;, header: &quot;duckdb.h&quot;, bycopy.} = object
   hour*: int8
   min*: int8
   sec*: int8
   micros*: int32">duckdb_time_struct</a></li>
-<li><a class="reference" href="#duckdb_time_tz" title="duckdb_time_tz = int64">duckdb_time_tz</a></li>
-<li><a class="reference" href="#duckdb_time_tz_struct" title="duckdb_time_tz_struct = object
-  hour*: int8
-  min*: int8
-  sec*: int8
-  micros*: int32
+<li><a class="reference" href="#duckdb_time_tz" title="duckdb_time_tz {.importc: &quot;duckdb_time_tz&quot;, header: &quot;duckdb.h&quot;, bycopy.} = object
+  bits*: uint64">duckdb_time_tz</a></li>
+<li><a class="reference" href="#duckdb_time_tz_struct" title="duckdb_time_tz_struct {.importc: &quot;duckdb_time_tz_struct&quot;, header: &quot;duckdb.h&quot;,
+                        bycopy.} = object
+  time*: duckdb_time_struct
   offset*: int32">duckdb_time_tz_struct</a></li>
-<li><a class="reference" href="#duckdb_timestamp" title="duckdb_timestamp = int64">duckdb_timestamp</a></li>
-<li><a class="reference" href="#duckdb_timestamp_ms" title="duckdb_timestamp_ms = int64">duckdb_timestamp_ms</a></li>
-<li><a class="reference" href="#duckdb_timestamp_ns" title="duckdb_timestamp_ns = int64">duckdb_timestamp_ns</a></li>
-<li><a class="reference" href="#duckdb_timestamp_s" title="duckdb_timestamp_s = int64">duckdb_timestamp_s</a></li>
-<li><a class="reference" href="#duckdb_timestamp_struct" title="duckdb_timestamp_struct = object
+<li><a class="reference" href="#duckdb_timestamp" title="duckdb_timestamp {.importc: &quot;duckdb_timestamp&quot;, header: &quot;duckdb.h&quot;, bycopy.} = object
+  micros*: int64">duckdb_timestamp</a></li>
+<li><a class="reference" href="#duckdb_timestamp_ms" title="duckdb_timestamp_ms {.importc: &quot;duckdb_timestamp_ms&quot;, header: &quot;duckdb.h&quot;, bycopy.} = object
+  millis*: int64">duckdb_timestamp_ms</a></li>
+<li><a class="reference" href="#duckdb_timestamp_ns" title="duckdb_timestamp_ns {.importc: &quot;duckdb_timestamp_ns&quot;, header: &quot;duckdb.h&quot;, bycopy.} = object
+  nanos*: int64">duckdb_timestamp_ns</a></li>
+<li><a class="reference" href="#duckdb_timestamp_s" title="duckdb_timestamp_s {.importc: &quot;duckdb_timestamp_s&quot;, header: &quot;duckdb.h&quot;, bycopy.} = object
+  seconds*: int64">duckdb_timestamp_s</a></li>
+<li><a class="reference" href="#duckdb_timestamp_struct" title="duckdb_timestamp_struct {.importc: &quot;duckdb_timestamp_struct&quot;,
+                          header: &quot;duckdb.h&quot;, bycopy.} = object
   date*: duckdb_date_struct
   time*: duckdb_time_struct">duckdb_timestamp_struct</a></li>
 <li><a class="reference" href="#duckdb_type" title="duckdb_type = DuckDBType">duckdb_type</a></li>
-<li><a class="reference" href="#duckdb_uhugeint" title="duckdb_uhugeint {.bycopy.} = object
+<li><a class="reference" href="#duckdb_uhugeint" title="duckdb_uhugeint {.importc: &quot;duckdb_uhugeint&quot;, header: &quot;duckdb.h&quot;, bycopy.} = object
   lower*: uint64
   upper*: uint64">duckdb_uhugeint</a></li>
-<li><a class="reference" href="#duckdb_value" title="duckdb_value = pointer">duckdb_value</a></li>
+<li><a class="reference" href="#duckdb_value" title="duckdb_value {.importc: &quot;duckdb_value&quot;, header: &quot;duckdb.h&quot;.} = object">duckdb_value</a></li>
 <li><a class="reference" href="#duckdb_varint" title="duckdb_varint = duckdb_hugeint">duckdb_varint</a></li>
-<li><a class="reference" href="#duckdb_vector" title="duckdb_vector = pointer">duckdb_vector</a></li>
+<li><a class="reference" href="#duckdb_vector" title="duckdb_vector {.importc: &quot;duckdb_vector&quot;, header: &quot;duckdb.h&quot;.} = object">duckdb_vector</a></li>
 <li><a class="reference" href="#DuckDBType" title="DuckDBType {.size: 4.} = enum
   DUCKDB_TYPE_INVALID = 0, DUCKDB_TYPE_BOOLEAN = 1, DUCKDB_TYPE_TINYINT = 2,
   DUCKDB_TYPE_SMALLINT = 3, DUCKDB_TYPE_INTEGER = 4, DUCKDB_TYPE_BIGINT = 5,
@@ -173,7 +231,10 @@
   DUCKDB_TYPE_ENUM = 23, DUCKDB_TYPE_LIST = 24, DUCKDB_TYPE_STRUCT = 25,
   DUCKDB_TYPE_MAP = 26, DUCKDB_TYPE_ARRAY = 33, DUCKDB_TYPE_UUID = 27,
   DUCKDB_TYPE_UNION = 28, DUCKDB_TYPE_BIT = 29, DUCKDB_TYPE_TIME_TZ = 30,
-  DUCKDB_TYPE_TIMESTAMP_TZ = 31">DuckDBType</a></li>
+  DUCKDB_TYPE_TIMESTAMP_TZ = 31, DUCKDB_TYPE_ANY = 34, DUCKDB_TYPE_BIGNUM = 35,
+  DUCKDB_TYPE_SQLNULL = 36, DUCKDB_TYPE_STRING_LITERAL = 37,
+  DUCKDB_TYPE_INTEGER_LITERAL = 38, DUCKDB_TYPE_TIME_NS = 39,
+  DUCKDB_TYPE_GEOMETRY = 40, DUCKDB_TYPE_VARIANT = 41">DuckDBType</a></li>
 <li><a class="reference" href="#idx_t" title="idx_t = uint64">idx_t</a></li>
 <li><a class="reference" href="#sel_t" title="sel_t = uint32">sel_t</a></li>
 
@@ -662,8 +723,8 @@
 </ul>
 <ul class="simple nested-toc-section">duckdb_cast_function_set_function
   <li><a class="reference" href="#duckdb_cast_function_set_function%2Cduckdb_cast_function%2Cduckdb_cast_function_t" title="duckdb_cast_function_set_function(cast_function: duckdb_cast_function;
-                                  fn: duckdb_cast_function_t)">duckdb_cast_function_set_function(cast_function: duckdb_cast_function;
-                                  fn: duckdb_cast_function_t)</a></li>
+                                  function: duckdb_cast_function_t)">duckdb_cast_function_set_function(cast_function: duckdb_cast_function;
+                                  function: duckdb_cast_function_t)</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">duckdb_cast_function_set_implicit_cast_cost
@@ -955,7 +1016,7 @@
 
 </ul>
 <ul class="simple nested-toc-section">duckdb_destroy_arrow_stream
-  <li><a class="reference" href="#duckdb_destroy_arrow_stream%2Cduckdb_arrow_stream" title="duckdb_destroy_arrow_stream(stream_p: duckdb_arrow_stream)">duckdb_destroy_arrow_stream(stream_p: duckdb_arrow_stream)</a></li>
+  <li><a class="reference" href="#duckdb_destroy_arrow_stream%2Cptr.duckdb_arrow_stream" title="duckdb_destroy_arrow_stream(stream_p: ptr duckdb_arrow_stream)">duckdb_destroy_arrow_stream(stream_p: ptr duckdb_arrow_stream)</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">duckdb_destroy_cast_function
@@ -1535,7 +1596,9 @@
 
 </ul>
 <ul class="simple nested-toc-section">duckdb_register_table_function
-  <li><a class="reference" href="#duckdb_register_table_function%2Cduckdb_connection%2Cduckdb_table_function" title="duckdb_register_table_function(con: duckdb_connection; fn: duckdb_table_function): duckdb_state">duckdb_register_table_function(con: duckdb_connection; fn: duckdb_table_function): duckdb_state</a></li>
+  <li><a class="reference" href="#duckdb_register_table_function%2Cduckdb_connection%2Cduckdb_table_function" title="duckdb_register_table_function(con: duckdb_connection;
+                               function: duckdb_table_function): duckdb_state">duckdb_register_table_function(con: duckdb_connection;
+                               function: duckdb_table_function): duckdb_state</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">duckdb_replacement_scan_add_parameter
@@ -1749,9 +1812,9 @@
 
 </ul>
 <ul class="simple nested-toc-section">duckdb_table_function_set_bind
-  <li><a class="reference" href="#duckdb_table_function_set_bind%2Cduckdb_table_function%2Cpointer" title="duckdb_table_function_set_bind(table_function: duckdb_table_function;
-                               bind: pointer)">duckdb_table_function_set_bind(table_function: duckdb_table_function;
-                               bind: pointer)</a></li>
+  <li><a class="reference" href="#duckdb_table_function_set_bind%2Cduckdb_table_function%2Cduckdb_table_function_bind_t" title="duckdb_table_function_set_bind(table_function: duckdb_table_function;
+                               bind: duckdb_table_function_bind_t)">duckdb_table_function_set_bind(table_function: duckdb_table_function;
+                               bind: duckdb_table_function_bind_t)</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">duckdb_table_function_set_extra_info
@@ -1763,21 +1826,21 @@
 
 </ul>
 <ul class="simple nested-toc-section">duckdb_table_function_set_function
-  <li><a class="reference" href="#duckdb_table_function_set_function%2Cduckdb_table_function%2Cpointer" title="duckdb_table_function_set_function(table_function: duckdb_table_function;
-                                   fn: pointer)">duckdb_table_function_set_function(table_function: duckdb_table_function;
-                                   fn: pointer)</a></li>
+  <li><a class="reference" href="#duckdb_table_function_set_function%2Cduckdb_table_function%2Cduckdb_table_function_t" title="duckdb_table_function_set_function(table_function: duckdb_table_function;
+                                   function: duckdb_table_function_t)">duckdb_table_function_set_function(table_function: duckdb_table_function;
+                                   function: duckdb_table_function_t)</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">duckdb_table_function_set_init
-  <li><a class="reference" href="#duckdb_table_function_set_init%2Cduckdb_table_function%2Cpointer" title="duckdb_table_function_set_init(table_function: duckdb_table_function;
-                               init: pointer)">duckdb_table_function_set_init(table_function: duckdb_table_function;
-                               init: pointer)</a></li>
+  <li><a class="reference" href="#duckdb_table_function_set_init%2Cduckdb_table_function%2Cduckdb_table_function_init_t" title="duckdb_table_function_set_init(table_function: duckdb_table_function;
+                               init: duckdb_table_function_init_t)">duckdb_table_function_set_init(table_function: duckdb_table_function;
+                               init: duckdb_table_function_init_t)</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">duckdb_table_function_set_local_init
-  <li><a class="reference" href="#duckdb_table_function_set_local_init%2Cduckdb_table_function%2Cpointer" title="duckdb_table_function_set_local_init(table_function: duckdb_table_function;
-                                     init: pointer)">duckdb_table_function_set_local_init(table_function: duckdb_table_function;
-                                     init: pointer)</a></li>
+  <li><a class="reference" href="#duckdb_table_function_set_local_init%2Cduckdb_table_function%2Cduckdb_table_function_init_t" title="duckdb_table_function_set_local_init(table_function: duckdb_table_function;
+                                     init: duckdb_table_function_init_t)">duckdb_table_function_set_local_init(table_function: duckdb_table_function;
+                                     init: duckdb_table_function_init_t)</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">duckdb_table_function_set_name
@@ -1932,6 +1995,40 @@
   <li><a class="reference" href="#duckdb_vector_size" title="duckdb_vector_size(): idx_t">duckdb_vector_size(): idx_t</a></li>
 
 </ul>
+<ul class="simple nested-toc-section">isNil
+  <li><a class="reference" href="#isNil%2Cduckdb_aggregate_function" title="isNil(x: duckdb_aggregate_function): bool">isNil(x: duckdb_aggregate_function): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_aggregate_function_set" title="isNil(x: duckdb_aggregate_function_set): bool">isNil(x: duckdb_aggregate_function_set): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_aggregate_state" title="isNil(x: duckdb_aggregate_state): bool">isNil(x: duckdb_aggregate_state): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_appender" title="isNil(x: duckdb_appender): bool">isNil(x: duckdb_appender): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_arrow" title="isNil(x: duckdb_arrow): bool">isNil(x: duckdb_arrow): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_arrow_array" title="isNil(x: duckdb_arrow_array): bool">isNil(x: duckdb_arrow_array): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_arrow_schema" title="isNil(x: duckdb_arrow_schema): bool">isNil(x: duckdb_arrow_schema): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_arrow_stream" title="isNil(x: duckdb_arrow_stream): bool">isNil(x: duckdb_arrow_stream): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_bind_info" title="isNil(x: duckdb_bind_info): bool">isNil(x: duckdb_bind_info): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_cast_function" title="isNil(x: duckdb_cast_function): bool">isNil(x: duckdb_cast_function): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_client_context" title="isNil(x: duckdb_client_context): bool">isNil(x: duckdb_client_context): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_config" title="isNil(x: duckdb_config): bool">isNil(x: duckdb_config): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_connection" title="isNil(x: duckdb_connection): bool">isNil(x: duckdb_connection): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_data_chunk" title="isNil(x: duckdb_data_chunk): bool">isNil(x: duckdb_data_chunk): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_database" title="isNil(x: duckdb_database): bool">isNil(x: duckdb_database): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_extracted_statements" title="isNil(x: duckdb_extracted_statements): bool">isNil(x: duckdb_extracted_statements): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_function_info" title="isNil(x: duckdb_function_info): bool">isNil(x: duckdb_function_info): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_init_info" title="isNil(x: duckdb_init_info): bool">isNil(x: duckdb_init_info): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_instance_cache" title="isNil(x: duckdb_instance_cache): bool">isNil(x: duckdb_instance_cache): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_logical_type" title="isNil(x: duckdb_logical_type): bool">isNil(x: duckdb_logical_type): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_pending_result" title="isNil(x: duckdb_pending_result): bool">isNil(x: duckdb_pending_result): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_prepared_statement" title="isNil(x: duckdb_prepared_statement): bool">isNil(x: duckdb_prepared_statement): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_profiling_info" title="isNil(x: duckdb_profiling_info): bool">isNil(x: duckdb_profiling_info): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_replacement_scan_info" title="isNil(x: duckdb_replacement_scan_info): bool">isNil(x: duckdb_replacement_scan_info): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_scalar_function" title="isNil(x: duckdb_scalar_function): bool">isNil(x: duckdb_scalar_function): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_scalar_function_set" title="isNil(x: duckdb_scalar_function_set): bool">isNil(x: duckdb_scalar_function_set): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_selection_vector" title="isNil(x: duckdb_selection_vector): bool">isNil(x: duckdb_selection_vector): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_table_description" title="isNil(x: duckdb_table_description): bool">isNil(x: duckdb_table_description): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_table_function" title="isNil(x: duckdb_table_function): bool">isNil(x: duckdb_table_function): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_value" title="isNil(x: duckdb_value): bool">isNil(x: duckdb_value): bool</a></li>
+<li><a class="reference" href="#isNil%2Cduckdb_vector" title="isNil(x: duckdb_vector): bool">isNil(x: duckdb_vector): bool</a></li>
+
+</ul>
 
     </ul>
   </details>
@@ -1949,7 +2046,10 @@
   <h1><a class="toc-backref" href="#7">Types</a></h1>
   <dl class="item">
     <div id="duckdb_aggregate_combine_t">
-  <dt><pre><a href="#duckdb_aggregate_combine_t"><span class="Identifier">duckdb_aggregate_combine_t</span></a> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Other">)</span> {.<span class="Identifier">cdecl</span>.}</pre></dt>
+  <dt><pre><a href="#duckdb_aggregate_combine_t"><span class="Identifier">duckdb_aggregate_combine_t</span></a> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">info</span><span class="Other">:</span> <a href="#duckdb_function_info"><span class="Identifier">duckdb_function_info</span></a><span class="Other">;</span>
+                                   <span class="Identifier">source</span><span class="Other">:</span> <span class="Keyword">ptr</span> <a href="#duckdb_aggregate_state"><span class="Identifier">duckdb_aggregate_state</span></a><span class="Other">;</span>
+                                   <span class="Identifier">target</span><span class="Other">:</span> <span class="Keyword">ptr</span> <a href="#duckdb_aggregate_state"><span class="Identifier">duckdb_aggregate_state</span></a><span class="Other">;</span>
+                                   <span class="Identifier">count</span><span class="Other">:</span> <a href="#idx_t"><span class="Identifier">idx_t</span></a><span class="Other">)</span> {.<span class="Identifier">cdecl</span>.}</pre></dt>
   <dd>
     
     
@@ -1957,7 +2057,8 @@
   </dd>
 </div>
 <div id="duckdb_aggregate_destroy_t">
-  <dt><pre><a href="#duckdb_aggregate_destroy_t"><span class="Identifier">duckdb_aggregate_destroy_t</span></a> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <span class="Identifier">pointer</span><span class="Other">)</span> {.<span class="Identifier">cdecl</span>.}</pre></dt>
+  <dt><pre><a href="#duckdb_aggregate_destroy_t"><span class="Identifier">duckdb_aggregate_destroy_t</span></a> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">states</span><span class="Other">:</span> <span class="Keyword">ptr</span> <a href="#duckdb_aggregate_state"><span class="Identifier">duckdb_aggregate_state</span></a><span class="Other">;</span>
+                                   <span class="Identifier">count</span><span class="Other">:</span> <a href="#idx_t"><span class="Identifier">idx_t</span></a><span class="Other">)</span> {.<span class="Identifier">cdecl</span>.}</pre></dt>
   <dd>
     
     
@@ -1965,7 +2066,10 @@
   </dd>
 </div>
 <div id="duckdb_aggregate_finalize_t">
-  <dt><pre><a href="#duckdb_aggregate_finalize_t"><span class="Identifier">duckdb_aggregate_finalize_t</span></a> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Other">)</span> {.<span class="Identifier">cdecl</span>.}</pre></dt>
+  <dt><pre><a href="#duckdb_aggregate_finalize_t"><span class="Identifier">duckdb_aggregate_finalize_t</span></a> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">info</span><span class="Other">:</span> <a href="#duckdb_function_info"><span class="Identifier">duckdb_function_info</span></a><span class="Other">;</span>
+                                    <span class="Identifier">source</span><span class="Other">:</span> <span class="Keyword">ptr</span> <a href="#duckdb_aggregate_state"><span class="Identifier">duckdb_aggregate_state</span></a><span class="Other">;</span>
+                                    <span class="Identifier">result</span><span class="Other">:</span> <a href="#duckdb_vector"><span class="Identifier">duckdb_vector</span></a><span class="Other">;</span> <span class="Identifier">count</span><span class="Other">:</span> <a href="#idx_t"><span class="Identifier">idx_t</span></a><span class="Other">;</span>
+                                    <span class="Identifier">offset</span><span class="Other">:</span> <a href="#idx_t"><span class="Identifier">idx_t</span></a><span class="Other">)</span> {.<span class="Identifier">cdecl</span>.}</pre></dt>
   <dd>
     
     
@@ -1973,7 +2077,8 @@
   </dd>
 </div>
 <div id="duckdb_aggregate_function">
-  <dt><pre><a href="#duckdb_aggregate_function"><span class="Identifier">duckdb_aggregate_function</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_aggregate_function"><span class="Identifier">duckdb_aggregate_function</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_aggregate_function&quot;</span><span class="Other">,</span>
+                            <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
     
@@ -1981,7 +2086,8 @@
   </dd>
 </div>
 <div id="duckdb_aggregate_function_set">
-  <dt><pre><a href="#duckdb_aggregate_function_set"><span class="Identifier">duckdb_aggregate_function_set</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_aggregate_function_set"><span class="Identifier">duckdb_aggregate_function_set</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_aggregate_function_set&quot;</span><span class="Other">,</span>
+                                <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
     
@@ -1989,7 +2095,16 @@
   </dd>
 </div>
 <div id="duckdb_aggregate_init_t">
-  <dt><pre><a href="#duckdb_aggregate_init_t"><span class="Identifier">duckdb_aggregate_init_t</span></a> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Other">)</span> {.<span class="Identifier">cdecl</span>.}</pre></dt>
+  <dt><pre><a href="#duckdb_aggregate_init_t"><span class="Identifier">duckdb_aggregate_init_t</span></a> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">info</span><span class="Other">:</span> <a href="#duckdb_function_info"><span class="Identifier">duckdb_function_info</span></a><span class="Other">;</span>
+                                <span class="Identifier">state</span><span class="Other">:</span> <a href="#duckdb_aggregate_state"><span class="Identifier">duckdb_aggregate_state</span></a><span class="Other">)</span> {.<span class="Identifier">cdecl</span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="duckdb_aggregate_state">
+  <dt><pre><a href="#duckdb_aggregate_state"><span class="Identifier">duckdb_aggregate_state</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_aggregate_state&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
     
@@ -1997,7 +2112,7 @@
   </dd>
 </div>
 <div id="duckdb_aggregate_state_size">
-  <dt><pre><a href="#duckdb_aggregate_state_size"><span class="Identifier">duckdb_aggregate_state_size</span></a> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">csize_t</span> {.<span class="Identifier">cdecl</span>.}</pre></dt>
+  <dt><pre><a href="#duckdb_aggregate_state_size"><span class="Identifier">duckdb_aggregate_state_size</span></a> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">info</span><span class="Other">:</span> <a href="#duckdb_function_info"><span class="Identifier">duckdb_function_info</span></a><span class="Other">)</span><span class="Other">:</span> <a href="#idx_t"><span class="Identifier">idx_t</span></a> {.<span class="Identifier">cdecl</span>.}</pre></dt>
   <dd>
     
     
@@ -2005,7 +2120,9 @@
   </dd>
 </div>
 <div id="duckdb_aggregate_update_t">
-  <dt><pre><a href="#duckdb_aggregate_update_t"><span class="Identifier">duckdb_aggregate_update_t</span></a> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Other">)</span> {.<span class="Identifier">cdecl</span>.}</pre></dt>
+  <dt><pre><a href="#duckdb_aggregate_update_t"><span class="Identifier">duckdb_aggregate_update_t</span></a> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">info</span><span class="Other">:</span> <a href="#duckdb_function_info"><span class="Identifier">duckdb_function_info</span></a><span class="Other">;</span>
+                                  <span class="Identifier">input</span><span class="Other">:</span> <a href="#duckdb_data_chunk"><span class="Identifier">duckdb_data_chunk</span></a><span class="Other">;</span>
+                                  <span class="Identifier">states</span><span class="Other">:</span> <span class="Keyword">ptr</span> <a href="#duckdb_aggregate_state"><span class="Identifier">duckdb_aggregate_state</span></a><span class="Other">)</span> {.<span class="Identifier">cdecl</span>.}</pre></dt>
   <dd>
     
     
@@ -2013,7 +2130,7 @@
   </dd>
 </div>
 <div id="duckdb_appender">
-  <dt><pre><a href="#duckdb_appender"><span class="Identifier">duckdb_appender</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_appender"><span class="Identifier">duckdb_appender</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_appender&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
     
@@ -2021,7 +2138,7 @@
   </dd>
 </div>
 <div id="duckdb_arrow">
-  <dt><pre><a href="#duckdb_arrow"><span class="Identifier">duckdb_arrow</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_arrow"><span class="Identifier">duckdb_arrow</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_arrow&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
     
@@ -2029,7 +2146,7 @@
   </dd>
 </div>
 <div id="duckdb_arrow_array">
-  <dt><pre><a href="#duckdb_arrow_array"><span class="Identifier">duckdb_arrow_array</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_arrow_array"><span class="Identifier">duckdb_arrow_array</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_arrow_array&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
     
@@ -2037,7 +2154,7 @@
   </dd>
 </div>
 <div id="duckdb_arrow_schema">
-  <dt><pre><a href="#duckdb_arrow_schema"><span class="Identifier">duckdb_arrow_schema</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_arrow_schema"><span class="Identifier">duckdb_arrow_schema</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_arrow_schema&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
     
@@ -2045,7 +2162,18 @@
   </dd>
 </div>
 <div id="duckdb_arrow_stream">
-  <dt><pre><a href="#duckdb_arrow_stream"><span class="Identifier">duckdb_arrow_stream</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_arrow_stream"><span class="Identifier">duckdb_arrow_stream</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_arrow_stream&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="duckdb_bignum">
+  <dt><pre><a href="#duckdb_bignum"><span class="Identifier">duckdb_bignum</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_bignum&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
+  <span class="Identifier">data</span><span class="Operator">*</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">uint8</span>
+  <span class="Identifier">size</span><span class="Operator">*</span><span class="Other">:</span> <a href="#idx_t"><span class="Identifier">idx_t</span></a>
+  <span class="Identifier">is_negative</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">bool</span></pre></dt>
   <dd>
     
     
@@ -2053,7 +2181,7 @@
   </dd>
 </div>
 <div id="duckdb_bind_info">
-  <dt><pre><a href="#duckdb_bind_info"><span class="Identifier">duckdb_bind_info</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_bind_info"><span class="Identifier">duckdb_bind_info</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_bind_info&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
     
@@ -2061,7 +2189,9 @@
   </dd>
 </div>
 <div id="duckdb_bit">
-  <dt><pre><a href="#duckdb_bit"><span class="Identifier">duckdb_bit</span></a> <span class="Other">=</span> <span class="Identifier">uint8</span></pre></dt>
+  <dt><pre><a href="#duckdb_bit"><span class="Identifier">duckdb_bit</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_bit&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
+  <span class="Identifier">data</span><span class="Operator">*</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">uint8</span>
+  <span class="Identifier">size</span><span class="Operator">*</span><span class="Other">:</span> <a href="#idx_t"><span class="Identifier">idx_t</span></a></pre></dt>
   <dd>
     
     
@@ -2069,7 +2199,7 @@
   </dd>
 </div>
 <div id="duckdb_blob">
-  <dt><pre><a href="#duckdb_blob"><span class="Identifier">duckdb_blob</span></a> {.<span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
+  <dt><pre><a href="#duckdb_blob"><span class="Identifier">duckdb_blob</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_blob&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
   <span class="Identifier">data</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">pointer</span>
   <span class="Identifier">size</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">uint64</span></pre></dt>
   <dd>
@@ -2079,7 +2209,7 @@
   </dd>
 </div>
 <div id="duckdb_cast_function">
-  <dt><pre><a href="#duckdb_cast_function"><span class="Identifier">duckdb_cast_function</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_cast_function"><span class="Identifier">duckdb_cast_function</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_cast_function&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
     
@@ -2087,7 +2217,9 @@
   </dd>
 </div>
 <div id="duckdb_cast_function_t">
-  <dt><pre><a href="#duckdb_cast_function_t"><span class="Identifier">duckdb_cast_function_t</span></a> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Other">)</span> {.<span class="Identifier">cdecl</span>.}</pre></dt>
+  <dt><pre><a href="#duckdb_cast_function_t"><span class="Identifier">duckdb_cast_function_t</span></a> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">info</span><span class="Other">:</span> <a href="#duckdb_function_info"><span class="Identifier">duckdb_function_info</span></a><span class="Other">;</span> <span class="Identifier">count</span><span class="Other">:</span> <a href="#idx_t"><span class="Identifier">idx_t</span></a><span class="Other">;</span>
+                               <span class="Identifier">input</span><span class="Other">:</span> <a href="#duckdb_vector"><span class="Identifier">duckdb_vector</span></a><span class="Other">;</span> <span class="Identifier">output</span><span class="Other">:</span> <a href="#duckdb_vector"><span class="Identifier">duckdb_vector</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.
+    <span class="Identifier">cdecl</span>.}</pre></dt>
   <dd>
     
     
@@ -2103,7 +2235,20 @@
   </dd>
 </div>
 <div id="duckdb_client_context">
-  <dt><pre><a href="#duckdb_client_context"><span class="Identifier">duckdb_client_context</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_client_context"><span class="Identifier">duckdb_client_context</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_client_context&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="duckdb_column">
+  <dt><pre><a href="#duckdb_column"><span class="Identifier">duckdb_column</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_column&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
+  <span class="Identifier">deprecated_data</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">pointer</span>
+  <span class="Identifier">deprecated_nullmask</span><span class="Operator">*</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">bool</span>
+  <span class="Identifier">deprecated_type</span><span class="Operator">*</span><span class="Other">:</span> <a href="#duckdb_type"><span class="Identifier">duckdb_type</span></a>
+  <span class="Identifier">deprecated_name</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cstring</span>
+  <span class="Identifier">internal_data</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">pointer</span></pre></dt>
   <dd>
     
     
@@ -2111,7 +2256,7 @@
   </dd>
 </div>
 <div id="duckdb_config">
-  <dt><pre><a href="#duckdb_config"><span class="Identifier">duckdb_config</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_config"><span class="Identifier">duckdb_config</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_config&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
     
@@ -2119,7 +2264,15 @@
   </dd>
 </div>
 <div id="duckdb_connection">
-  <dt><pre><a href="#duckdb_connection"><span class="Identifier">duckdb_connection</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_connection"><span class="Identifier">duckdb_connection</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_connection&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="duckdb_copy_callback_t">
+  <dt><pre><a href="#duckdb_copy_callback_t"><span class="Identifier">duckdb_copy_callback_t</span></a> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <span class="Identifier">pointer</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">pointer</span> {.<span class="Identifier">cdecl</span>.}</pre></dt>
   <dd>
     
     
@@ -2127,7 +2280,7 @@
   </dd>
 </div>
 <div id="duckdb_data_chunk">
-  <dt><pre><a href="#duckdb_data_chunk"><span class="Identifier">duckdb_data_chunk</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_data_chunk"><span class="Identifier">duckdb_data_chunk</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_data_chunk&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
     
@@ -2135,7 +2288,7 @@
   </dd>
 </div>
 <div id="duckdb_database">
-  <dt><pre><a href="#duckdb_database"><span class="Identifier">duckdb_database</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_database"><span class="Identifier">duckdb_database</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_database&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
     
@@ -2143,7 +2296,8 @@
   </dd>
 </div>
 <div id="duckdb_date">
-  <dt><pre><a href="#duckdb_date"><span class="Identifier">duckdb_date</span></a> <span class="Other">=</span> <span class="Identifier">int32</span></pre></dt>
+  <dt><pre><a href="#duckdb_date"><span class="Identifier">duckdb_date</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_date&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
+  <span class="Identifier">days</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int32</span></pre></dt>
   <dd>
     
     
@@ -2151,7 +2305,7 @@
   </dd>
 </div>
 <div id="duckdb_date_struct">
-  <dt><pre><a href="#duckdb_date_struct"><span class="Identifier">duckdb_date_struct</span></a> <span class="Other">=</span> <span class="Keyword">object</span>
+  <dt><pre><a href="#duckdb_date_struct"><span class="Identifier">duckdb_date_struct</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_date_struct&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
   <span class="Identifier">year</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int32</span>
   <span class="Identifier">month</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int8</span>
   <span class="Identifier">day</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int8</span></pre></dt>
@@ -2162,10 +2316,10 @@
   </dd>
 </div>
 <div id="duckdb_decimal">
-  <dt><pre><a href="#duckdb_decimal"><span class="Identifier">duckdb_decimal</span></a> {.<span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
-  <span class="Identifier">value</span><span class="Operator">*</span><span class="Other">:</span> <a href="#duckdb_hugeint"><span class="Identifier">duckdb_hugeint</span></a>
+  <dt><pre><a href="#duckdb_decimal"><span class="Identifier">duckdb_decimal</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_decimal&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
   <span class="Identifier">width</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">uint8</span>
-  <span class="Identifier">scale</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">uint8</span></pre></dt>
+  <span class="Identifier">scale</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">uint8</span>
+  <span class="Identifier">value</span><span class="Operator">*</span><span class="Other">:</span> <a href="#duckdb_hugeint"><span class="Identifier">duckdb_hugeint</span></a></pre></dt>
   <dd>
     
     
@@ -2189,7 +2343,8 @@
   </dd>
 </div>
 <div id="duckdb_extracted_statements">
-  <dt><pre><a href="#duckdb_extracted_statements"><span class="Identifier">duckdb_extracted_statements</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_extracted_statements"><span class="Identifier">duckdb_extracted_statements</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_extracted_statements&quot;</span><span class="Other">,</span>
+                              <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
     
@@ -2197,7 +2352,7 @@
   </dd>
 </div>
 <div id="duckdb_function_info">
-  <dt><pre><a href="#duckdb_function_info"><span class="Identifier">duckdb_function_info</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_function_info"><span class="Identifier">duckdb_function_info</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_function_info&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
     
@@ -2205,7 +2360,7 @@
   </dd>
 </div>
 <div id="duckdb_hugeint">
-  <dt><pre><a href="#duckdb_hugeint"><span class="Identifier">duckdb_hugeint</span></a> {.<span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
+  <dt><pre><a href="#duckdb_hugeint"><span class="Identifier">duckdb_hugeint</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_hugeint&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
   <span class="Identifier">lower</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">uint64</span>
   <span class="Identifier">upper</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int64</span></pre></dt>
   <dd>
@@ -2215,7 +2370,7 @@
   </dd>
 </div>
 <div id="duckdb_init_info">
-  <dt><pre><a href="#duckdb_init_info"><span class="Identifier">duckdb_init_info</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_init_info"><span class="Identifier">duckdb_init_info</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_init_info&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
     
@@ -2223,7 +2378,7 @@
   </dd>
 </div>
 <div id="duckdb_instance_cache">
-  <dt><pre><a href="#duckdb_instance_cache"><span class="Identifier">duckdb_instance_cache</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_instance_cache"><span class="Identifier">duckdb_instance_cache</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_instance_cache&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
     
@@ -2231,7 +2386,7 @@
   </dd>
 </div>
 <div id="duckdb_interval">
-  <dt><pre><a href="#duckdb_interval"><span class="Identifier">duckdb_interval</span></a> {.<span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
+  <dt><pre><a href="#duckdb_interval"><span class="Identifier">duckdb_interval</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_interval&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
   <span class="Identifier">months</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int32</span>
   <span class="Identifier">days</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int32</span>
   <span class="Identifier">micros</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int64</span></pre></dt>
@@ -2242,7 +2397,7 @@
   </dd>
 </div>
 <div id="duckdb_logical_type">
-  <dt><pre><a href="#duckdb_logical_type"><span class="Identifier">duckdb_logical_type</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_logical_type"><span class="Identifier">duckdb_logical_type</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_logical_type&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
     
@@ -2250,7 +2405,7 @@
   </dd>
 </div>
 <div id="duckdb_pending_result">
-  <dt><pre><a href="#duckdb_pending_result"><span class="Identifier">duckdb_pending_result</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_pending_result"><span class="Identifier">duckdb_pending_result</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_pending_result&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
     
@@ -2266,7 +2421,8 @@
   </dd>
 </div>
 <div id="duckdb_prepared_statement">
-  <dt><pre><a href="#duckdb_prepared_statement"><span class="Identifier">duckdb_prepared_statement</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_prepared_statement"><span class="Identifier">duckdb_prepared_statement</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_prepared_statement&quot;</span><span class="Other">,</span>
+                            <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
     
@@ -2274,7 +2430,7 @@
   </dd>
 </div>
 <div id="duckdb_profiling_info">
-  <dt><pre><a href="#duckdb_profiling_info"><span class="Identifier">duckdb_profiling_info</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_profiling_info"><span class="Identifier">duckdb_profiling_info</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_profiling_info&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
     
@@ -2282,7 +2438,11 @@
   </dd>
 </div>
 <div id="duckdb_query_progress_type">
-  <dt><pre><a href="#duckdb_query_progress_type"><span class="Identifier">duckdb_query_progress_type</span></a> <span class="Other">=</span> <span class="Identifier">cint</span></pre></dt>
+  <dt><pre><a href="#duckdb_query_progress_type"><span class="Identifier">duckdb_query_progress_type</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_query_progress_type&quot;</span><span class="Other">,</span>
+                             <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
+  <span class="Identifier">percentage</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">float64</span>
+  <span class="Identifier">rows_processed</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">uint64</span>
+  <span class="Identifier">total_rows_to_process</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">uint64</span></pre></dt>
   <dd>
     
     
@@ -2290,9 +2450,9 @@
   </dd>
 </div>
 <div id="duckdb_replacement_callback_t">
-  <dt><pre><a href="#duckdb_replacement_callback_t"><span class="Identifier">duckdb_replacement_callback_t</span></a> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">db</span><span class="Other">:</span> <a href="#duckdb_database"><span class="Identifier">duckdb_database</span></a><span class="Other">;</span>
-                                      <span class="Identifier">info</span><span class="Other">:</span> <a href="#duckdb_replacement_scan_info"><span class="Identifier">duckdb_replacement_scan_info</span></a><span class="Other">;</span>
-                                      <span class="Identifier">extra_data</span><span class="Other">:</span> <span class="Identifier">pointer</span><span class="Other">)</span> {.<span class="Identifier">cdecl</span>.}</pre></dt>
+  <dt><pre><a href="#duckdb_replacement_callback_t"><span class="Identifier">duckdb_replacement_callback_t</span></a> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">info</span><span class="Other">:</span> <a href="#duckdb_replacement_scan_info"><span class="Identifier">duckdb_replacement_scan_info</span></a><span class="Other">;</span>
+                                      <span class="Identifier">table_name</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">data</span><span class="Other">:</span> <span class="Identifier">pointer</span><span class="Other">)</span> {.
+    <span class="Identifier">cdecl</span>.}</pre></dt>
   <dd>
     
     
@@ -2300,7 +2460,8 @@
   </dd>
 </div>
 <div id="duckdb_replacement_scan_info">
-  <dt><pre><a href="#duckdb_replacement_scan_info"><span class="Identifier">duckdb_replacement_scan_info</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_replacement_scan_info"><span class="Identifier">duckdb_replacement_scan_info</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_replacement_scan_info&quot;</span><span class="Other">,</span>
+                               <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
     
@@ -2308,7 +2469,13 @@
   </dd>
 </div>
 <div id="duckdb_result">
-  <dt><pre><a href="#duckdb_result"><span class="Identifier">duckdb_result</span></a> {.<span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
+  <dt><pre><a href="#duckdb_result"><span class="Identifier">duckdb_result</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_result&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
+  <span class="Identifier">deprecated_column_count</span><span class="Operator">*</span><span class="Other">:</span> <a href="#idx_t"><span class="Identifier">idx_t</span></a>
+  <span class="Identifier">deprecated_row_count</span><span class="Operator">*</span><span class="Other">:</span> <a href="#idx_t"><span class="Identifier">idx_t</span></a>
+  <span class="Identifier">deprecated_rows_changed</span><span class="Operator">*</span><span class="Other">:</span> <a href="#idx_t"><span class="Identifier">idx_t</span></a>
+  <span class="Identifier">deprecated_columns</span><span class="Operator">*</span><span class="Other">:</span> <span class="Keyword">ptr</span> <a href="#duckdb_column"><span class="Identifier">duckdb_column</span></a>
+  <span class="Identifier">deprecated_error_message</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cstring</span>
+  <span class="Identifier">internal_data</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">pointer</span></pre></dt>
   <dd>
     
     
@@ -2324,7 +2491,7 @@
   </dd>
 </div>
 <div id="duckdb_scalar_function">
-  <dt><pre><a href="#duckdb_scalar_function"><span class="Identifier">duckdb_scalar_function</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_scalar_function"><span class="Identifier">duckdb_scalar_function</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_scalar_function&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
     
@@ -2339,8 +2506,17 @@
     
   </dd>
 </div>
+<div id="duckdb_scalar_function_init_t">
+  <dt><pre><a href="#duckdb_scalar_function_init_t"><span class="Identifier">duckdb_scalar_function_init_t</span></a> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">info</span><span class="Other">:</span> <a href="#duckdb_init_info"><span class="Identifier">duckdb_init_info</span></a><span class="Other">)</span> {.<span class="Identifier">cdecl</span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
 <div id="duckdb_scalar_function_set">
-  <dt><pre><a href="#duckdb_scalar_function_set"><span class="Identifier">duckdb_scalar_function_set</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_scalar_function_set"><span class="Identifier">duckdb_scalar_function_set</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_scalar_function_set&quot;</span><span class="Other">,</span>
+                             <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
     
@@ -2348,7 +2524,9 @@
   </dd>
 </div>
 <div id="duckdb_scalar_function_t">
-  <dt><pre><a href="#duckdb_scalar_function_t"><span class="Identifier">duckdb_scalar_function_t</span></a> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">info</span><span class="Other">:</span> <a href="#duckdb_function_info"><span class="Identifier">duckdb_function_info</span></a><span class="Other">)</span> {.<span class="Identifier">cdecl</span>.}</pre></dt>
+  <dt><pre><a href="#duckdb_scalar_function_t"><span class="Identifier">duckdb_scalar_function_t</span></a> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">info</span><span class="Other">:</span> <a href="#duckdb_function_info"><span class="Identifier">duckdb_function_info</span></a><span class="Other">;</span>
+                                 <span class="Identifier">input</span><span class="Other">:</span> <a href="#duckdb_data_chunk"><span class="Identifier">duckdb_data_chunk</span></a><span class="Other">;</span> <span class="Identifier">output</span><span class="Other">:</span> <a href="#duckdb_vector"><span class="Identifier">duckdb_vector</span></a><span class="Other">)</span> {.
+    <span class="Identifier">cdecl</span>.}</pre></dt>
   <dd>
     
     
@@ -2356,7 +2534,7 @@
   </dd>
 </div>
 <div id="duckdb_selection_vector">
-  <dt><pre><a href="#duckdb_selection_vector"><span class="Identifier">duckdb_selection_vector</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_selection_vector"><span class="Identifier">duckdb_selection_vector</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_selection_vector&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
     
@@ -2380,7 +2558,7 @@
   </dd>
 </div>
 <div id="duckdb_string">
-  <dt><pre><a href="#duckdb_string"><span class="Identifier">duckdb_string</span></a> {.<span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
+  <dt><pre><a href="#duckdb_string"><span class="Identifier">duckdb_string</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_string&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
   <span class="Identifier">data</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cstring</span>
   <span class="Identifier">size</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">uint32</span></pre></dt>
   <dd>
@@ -2390,8 +2568,8 @@
   </dd>
 </div>
 <div id="duckdb_string_t">
-  <dt><pre><a href="#duckdb_string_t"><span class="Identifier">duckdb_string_t</span></a> <span class="Other">=</span> <span class="Keyword">object</span>
-  <span class="Identifier">data</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">array</span><span class="Other">[</span><span class="DecNumber">12</span><span class="Other">,</span> <span class="Identifier">byte</span><span class="Other">]</span></pre></dt>
+  <dt><pre><a href="#duckdb_string_t"><span class="Identifier">duckdb_string_t</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_string_t&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
+  <span class="Identifier">data</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">array</span><span class="Other">[</span><span class="DecNumber">16</span><span class="Other">,</span> <span class="Identifier">byte</span><span class="Other">]</span></pre></dt>
   <dd>
     
     
@@ -2399,7 +2577,8 @@
   </dd>
 </div>
 <div id="duckdb_table_description">
-  <dt><pre><a href="#duckdb_table_description"><span class="Identifier">duckdb_table_description</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_table_description"><span class="Identifier">duckdb_table_description</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_table_description&quot;</span><span class="Other">,</span>
+                           <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
     
@@ -2407,7 +2586,32 @@
   </dd>
 </div>
 <div id="duckdb_table_function">
-  <dt><pre><a href="#duckdb_table_function"><span class="Identifier">duckdb_table_function</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_table_function"><span class="Identifier">duckdb_table_function</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_table_function&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="duckdb_table_function_bind_t">
+  <dt><pre><a href="#duckdb_table_function_bind_t"><span class="Identifier">duckdb_table_function_bind_t</span></a> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">info</span><span class="Other">:</span> <a href="#duckdb_bind_info"><span class="Identifier">duckdb_bind_info</span></a><span class="Other">)</span> {.<span class="Identifier">cdecl</span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="duckdb_table_function_init_t">
+  <dt><pre><a href="#duckdb_table_function_init_t"><span class="Identifier">duckdb_table_function_init_t</span></a> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">info</span><span class="Other">:</span> <a href="#duckdb_init_info"><span class="Identifier">duckdb_init_info</span></a><span class="Other">)</span> {.<span class="Identifier">cdecl</span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="duckdb_table_function_t">
+  <dt><pre><a href="#duckdb_table_function_t"><span class="Identifier">duckdb_table_function_t</span></a> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">info</span><span class="Other">:</span> <a href="#duckdb_function_info"><span class="Identifier">duckdb_function_info</span></a><span class="Other">;</span>
+                                <span class="Identifier">output</span><span class="Other">:</span> <a href="#duckdb_data_chunk"><span class="Identifier">duckdb_data_chunk</span></a><span class="Other">)</span> {.<span class="Identifier">cdecl</span>.}</pre></dt>
   <dd>
     
     
@@ -2423,7 +2627,17 @@
   </dd>
 </div>
 <div id="duckdb_time">
-  <dt><pre><a href="#duckdb_time"><span class="Identifier">duckdb_time</span></a> <span class="Other">=</span> <span class="Identifier">int64</span></pre></dt>
+  <dt><pre><a href="#duckdb_time"><span class="Identifier">duckdb_time</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_time&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
+  <span class="Identifier">micros</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int64</span></pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="duckdb_time_ns">
+  <dt><pre><a href="#duckdb_time_ns"><span class="Identifier">duckdb_time_ns</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_time_ns&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
+  <span class="Identifier">nanos</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int64</span></pre></dt>
   <dd>
     
     
@@ -2431,7 +2645,7 @@
   </dd>
 </div>
 <div id="duckdb_time_struct">
-  <dt><pre><a href="#duckdb_time_struct"><span class="Identifier">duckdb_time_struct</span></a> <span class="Other">=</span> <span class="Keyword">object</span>
+  <dt><pre><a href="#duckdb_time_struct"><span class="Identifier">duckdb_time_struct</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_time_struct&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
   <span class="Identifier">hour</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int8</span>
   <span class="Identifier">min</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int8</span>
   <span class="Identifier">sec</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int8</span>
@@ -2443,7 +2657,8 @@
   </dd>
 </div>
 <div id="duckdb_time_tz">
-  <dt><pre><a href="#duckdb_time_tz"><span class="Identifier">duckdb_time_tz</span></a> <span class="Other">=</span> <span class="Identifier">int64</span></pre></dt>
+  <dt><pre><a href="#duckdb_time_tz"><span class="Identifier">duckdb_time_tz</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_time_tz&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
+  <span class="Identifier">bits</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">uint64</span></pre></dt>
   <dd>
     
     
@@ -2451,11 +2666,9 @@
   </dd>
 </div>
 <div id="duckdb_time_tz_struct">
-  <dt><pre><a href="#duckdb_time_tz_struct"><span class="Identifier">duckdb_time_tz_struct</span></a> <span class="Other">=</span> <span class="Keyword">object</span>
-  <span class="Identifier">hour</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int8</span>
-  <span class="Identifier">min</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int8</span>
-  <span class="Identifier">sec</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int8</span>
-  <span class="Identifier">micros</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int32</span>
+  <dt><pre><a href="#duckdb_time_tz_struct"><span class="Identifier">duckdb_time_tz_struct</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_time_tz_struct&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span>
+                        <span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
+  <span class="Identifier">time</span><span class="Operator">*</span><span class="Other">:</span> <a href="#duckdb_time_struct"><span class="Identifier">duckdb_time_struct</span></a>
   <span class="Identifier">offset</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int32</span></pre></dt>
   <dd>
     
@@ -2464,7 +2677,8 @@
   </dd>
 </div>
 <div id="duckdb_timestamp">
-  <dt><pre><a href="#duckdb_timestamp"><span class="Identifier">duckdb_timestamp</span></a> <span class="Other">=</span> <span class="Identifier">int64</span></pre></dt>
+  <dt><pre><a href="#duckdb_timestamp"><span class="Identifier">duckdb_timestamp</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_timestamp&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
+  <span class="Identifier">micros</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int64</span></pre></dt>
   <dd>
     
     
@@ -2472,7 +2686,8 @@
   </dd>
 </div>
 <div id="duckdb_timestamp_ms">
-  <dt><pre><a href="#duckdb_timestamp_ms"><span class="Identifier">duckdb_timestamp_ms</span></a> <span class="Other">=</span> <span class="Identifier">int64</span></pre></dt>
+  <dt><pre><a href="#duckdb_timestamp_ms"><span class="Identifier">duckdb_timestamp_ms</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_timestamp_ms&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
+  <span class="Identifier">millis</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int64</span></pre></dt>
   <dd>
     
     
@@ -2480,7 +2695,8 @@
   </dd>
 </div>
 <div id="duckdb_timestamp_ns">
-  <dt><pre><a href="#duckdb_timestamp_ns"><span class="Identifier">duckdb_timestamp_ns</span></a> <span class="Other">=</span> <span class="Identifier">int64</span></pre></dt>
+  <dt><pre><a href="#duckdb_timestamp_ns"><span class="Identifier">duckdb_timestamp_ns</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_timestamp_ns&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
+  <span class="Identifier">nanos</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int64</span></pre></dt>
   <dd>
     
     
@@ -2488,7 +2704,8 @@
   </dd>
 </div>
 <div id="duckdb_timestamp_s">
-  <dt><pre><a href="#duckdb_timestamp_s"><span class="Identifier">duckdb_timestamp_s</span></a> <span class="Other">=</span> <span class="Identifier">int64</span></pre></dt>
+  <dt><pre><a href="#duckdb_timestamp_s"><span class="Identifier">duckdb_timestamp_s</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_timestamp_s&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
+  <span class="Identifier">seconds</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int64</span></pre></dt>
   <dd>
     
     
@@ -2496,7 +2713,8 @@
   </dd>
 </div>
 <div id="duckdb_timestamp_struct">
-  <dt><pre><a href="#duckdb_timestamp_struct"><span class="Identifier">duckdb_timestamp_struct</span></a> <span class="Other">=</span> <span class="Keyword">object</span>
+  <dt><pre><a href="#duckdb_timestamp_struct"><span class="Identifier">duckdb_timestamp_struct</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_timestamp_struct&quot;</span><span class="Other">,</span>
+                          <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
   <span class="Identifier">date</span><span class="Operator">*</span><span class="Other">:</span> <a href="#duckdb_date_struct"><span class="Identifier">duckdb_date_struct</span></a>
   <span class="Identifier">time</span><span class="Operator">*</span><span class="Other">:</span> <a href="#duckdb_time_struct"><span class="Identifier">duckdb_time_struct</span></a></pre></dt>
   <dd>
@@ -2514,7 +2732,7 @@
   </dd>
 </div>
 <div id="duckdb_uhugeint">
-  <dt><pre><a href="#duckdb_uhugeint"><span class="Identifier">duckdb_uhugeint</span></a> {.<span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
+  <dt><pre><a href="#duckdb_uhugeint"><span class="Identifier">duckdb_uhugeint</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_uhugeint&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
   <span class="Identifier">lower</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">uint64</span>
   <span class="Identifier">upper</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">uint64</span></pre></dt>
   <dd>
@@ -2524,7 +2742,7 @@
   </dd>
 </div>
 <div id="duckdb_value">
-  <dt><pre><a href="#duckdb_value"><span class="Identifier">duckdb_value</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_value"><span class="Identifier">duckdb_value</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_value&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
     
@@ -2540,7 +2758,7 @@
   </dd>
 </div>
 <div id="duckdb_vector">
-  <dt><pre><a href="#duckdb_vector"><span class="Identifier">duckdb_vector</span></a> <span class="Other">=</span> <span class="Identifier">pointer</span></pre></dt>
+  <dt><pre><a href="#duckdb_vector"><span class="Identifier">duckdb_vector</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb_vector&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
     
@@ -2561,7 +2779,10 @@
   <span class="Identifier">DUCKDB_TYPE_ENUM</span> <span class="Other">=</span> <span class="DecNumber">23</span><span class="Other">,</span> <span class="Identifier">DUCKDB_TYPE_LIST</span> <span class="Other">=</span> <span class="DecNumber">24</span><span class="Other">,</span> <span class="Identifier">DUCKDB_TYPE_STRUCT</span> <span class="Other">=</span> <span class="DecNumber">25</span><span class="Other">,</span>
   <span class="Identifier">DUCKDB_TYPE_MAP</span> <span class="Other">=</span> <span class="DecNumber">26</span><span class="Other">,</span> <span class="Identifier">DUCKDB_TYPE_ARRAY</span> <span class="Other">=</span> <span class="DecNumber">33</span><span class="Other">,</span> <span class="Identifier">DUCKDB_TYPE_UUID</span> <span class="Other">=</span> <span class="DecNumber">27</span><span class="Other">,</span>
   <span class="Identifier">DUCKDB_TYPE_UNION</span> <span class="Other">=</span> <span class="DecNumber">28</span><span class="Other">,</span> <span class="Identifier">DUCKDB_TYPE_BIT</span> <span class="Other">=</span> <span class="DecNumber">29</span><span class="Other">,</span> <span class="Identifier">DUCKDB_TYPE_TIME_TZ</span> <span class="Other">=</span> <span class="DecNumber">30</span><span class="Other">,</span>
-  <span class="Identifier">DUCKDB_TYPE_TIMESTAMP_TZ</span> <span class="Other">=</span> <span class="DecNumber">31</span></pre></dt>
+  <span class="Identifier">DUCKDB_TYPE_TIMESTAMP_TZ</span> <span class="Other">=</span> <span class="DecNumber">31</span><span class="Other">,</span> <span class="Identifier">DUCKDB_TYPE_ANY</span> <span class="Other">=</span> <span class="DecNumber">34</span><span class="Other">,</span> <span class="Identifier">DUCKDB_TYPE_BIGNUM</span> <span class="Other">=</span> <span class="DecNumber">35</span><span class="Other">,</span>
+  <span class="Identifier">DUCKDB_TYPE_SQLNULL</span> <span class="Other">=</span> <span class="DecNumber">36</span><span class="Other">,</span> <span class="Identifier">DUCKDB_TYPE_STRING_LITERAL</span> <span class="Other">=</span> <span class="DecNumber">37</span><span class="Other">,</span>
+  <span class="Identifier">DUCKDB_TYPE_INTEGER_LITERAL</span> <span class="Other">=</span> <span class="DecNumber">38</span><span class="Other">,</span> <span class="Identifier">DUCKDB_TYPE_TIME_NS</span> <span class="Other">=</span> <span class="DecNumber">39</span><span class="Other">,</span>
+  <span class="Identifier">DUCKDB_TYPE_GEOMETRY</span> <span class="Other">=</span> <span class="DecNumber">40</span><span class="Other">,</span> <span class="Identifier">DUCKDB_TYPE_VARIANT</span> <span class="Other">=</span> <span class="DecNumber">41</span></pre></dt>
   <dd>
     
     Represents the various data types supported by DuckDB. For more information, see: <a class="reference external" href="https://duckdb.org/docs/stable/clients/c/types">https://duckdb.org/docs/stable/clients/c/types</a>
@@ -3743,8 +3964,8 @@
 <div id="duckdb_cast_function_set_function-procs-all">
   <div id="duckdb_cast_function_set_function,duckdb_cast_function,duckdb_cast_function_t">
   <dt><pre><span class="Keyword">proc</span> <a href="#duckdb_cast_function_set_function%2Cduckdb_cast_function%2Cduckdb_cast_function_t"><span class="Identifier">duckdb_cast_function_set_function</span></a><span class="Other">(</span><span class="Identifier">cast_function</span><span class="Other">:</span> <a href="#duckdb_cast_function"><span class="Identifier">duckdb_cast_function</span></a><span class="Other">;</span>
-                                       <span class="Identifier">fn</span><span class="Other">:</span> <a href="#duckdb_cast_function_t"><span class="Identifier">duckdb_cast_function_t</span></a><span class="Other">)</span> {.<span class="Identifier">importc</span><span class="Other">,</span>
-    <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+                                       <span class="Identifier">function</span><span class="Other">:</span> <a href="#duckdb_cast_function_t"><span class="Identifier">duckdb_cast_function_t</span></a><span class="Other">)</span> {.
+    <span class="Identifier">importc</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
@@ -4573,8 +4794,8 @@
 
 </div>
 <div id="duckdb_destroy_arrow_stream-procs-all">
-  <div id="duckdb_destroy_arrow_stream,duckdb_arrow_stream">
-  <dt><pre><span class="Keyword">proc</span> <a href="#duckdb_destroy_arrow_stream%2Cduckdb_arrow_stream"><span class="Identifier">duckdb_destroy_arrow_stream</span></a><span class="Other">(</span><span class="Identifier">stream_p</span><span class="Other">:</span> <a href="#duckdb_arrow_stream"><span class="Identifier">duckdb_arrow_stream</span></a><span class="Other">)</span> {.<span class="Identifier">importc</span><span class="Other">,</span>
+  <div id="duckdb_destroy_arrow_stream,ptr.duckdb_arrow_stream">
+  <dt><pre><span class="Keyword">proc</span> <a href="#duckdb_destroy_arrow_stream%2Cptr.duckdb_arrow_stream"><span class="Identifier">duckdb_destroy_arrow_stream</span></a><span class="Other">(</span><span class="Identifier">stream_p</span><span class="Other">:</span> <span class="Keyword">ptr</span> <a href="#duckdb_arrow_stream"><span class="Identifier">duckdb_arrow_stream</span></a><span class="Other">)</span> {.<span class="Identifier">importc</span><span class="Other">,</span>
     <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
@@ -6178,7 +6399,7 @@
 <div id="duckdb_register_table_function-procs-all">
   <div id="duckdb_register_table_function,duckdb_connection,duckdb_table_function">
   <dt><pre><span class="Keyword">proc</span> <a href="#duckdb_register_table_function%2Cduckdb_connection%2Cduckdb_table_function"><span class="Identifier">duckdb_register_table_function</span></a><span class="Other">(</span><span class="Identifier">con</span><span class="Other">:</span> <a href="#duckdb_connection"><span class="Identifier">duckdb_connection</span></a><span class="Other">;</span>
-                                    <span class="Identifier">fn</span><span class="Other">:</span> <a href="#duckdb_table_function"><span class="Identifier">duckdb_table_function</span></a><span class="Other">)</span><span class="Other">:</span> <a href="#duckdb_state"><span class="Identifier">duckdb_state</span></a> {.
+                                    <span class="Identifier">function</span><span class="Other">:</span> <a href="#duckdb_table_function"><span class="Identifier">duckdb_table_function</span></a><span class="Other">)</span><span class="Other">:</span> <a href="#duckdb_state"><span class="Identifier">duckdb_state</span></a> {.
     <span class="Identifier">importc</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
@@ -6705,10 +6926,10 @@
 
 </div>
 <div id="duckdb_table_function_set_bind-procs-all">
-  <div id="duckdb_table_function_set_bind,duckdb_table_function,pointer">
-  <dt><pre><span class="Keyword">proc</span> <a href="#duckdb_table_function_set_bind%2Cduckdb_table_function%2Cpointer"><span class="Identifier">duckdb_table_function_set_bind</span></a><span class="Other">(</span><span class="Identifier">table_function</span><span class="Other">:</span> <a href="#duckdb_table_function"><span class="Identifier">duckdb_table_function</span></a><span class="Other">;</span>
-                                    <span class="Identifier">bind</span><span class="Other">:</span> <span class="Identifier">pointer</span><span class="Other">)</span> {.<span class="Identifier">importc</span><span class="Other">,</span>
-    <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <div id="duckdb_table_function_set_bind,duckdb_table_function,duckdb_table_function_bind_t">
+  <dt><pre><span class="Keyword">proc</span> <a href="#duckdb_table_function_set_bind%2Cduckdb_table_function%2Cduckdb_table_function_bind_t"><span class="Identifier">duckdb_table_function_set_bind</span></a><span class="Other">(</span><span class="Identifier">table_function</span><span class="Other">:</span> <a href="#duckdb_table_function"><span class="Identifier">duckdb_table_function</span></a><span class="Other">;</span>
+                                    <span class="Identifier">bind</span><span class="Other">:</span> <a href="#duckdb_table_function_bind_t"><span class="Identifier">duckdb_table_function_bind_t</span></a><span class="Other">)</span> {.
+    <span class="Identifier">importc</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
@@ -6731,10 +6952,10 @@
 
 </div>
 <div id="duckdb_table_function_set_function-procs-all">
-  <div id="duckdb_table_function_set_function,duckdb_table_function,pointer">
-  <dt><pre><span class="Keyword">proc</span> <a href="#duckdb_table_function_set_function%2Cduckdb_table_function%2Cpointer"><span class="Identifier">duckdb_table_function_set_function</span></a><span class="Other">(</span><span class="Identifier">table_function</span><span class="Other">:</span> <a href="#duckdb_table_function"><span class="Identifier">duckdb_table_function</span></a><span class="Other">;</span>
-                                        <span class="Identifier">fn</span><span class="Other">:</span> <span class="Identifier">pointer</span><span class="Other">)</span> {.<span class="Identifier">importc</span><span class="Other">,</span>
-    <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <div id="duckdb_table_function_set_function,duckdb_table_function,duckdb_table_function_t">
+  <dt><pre><span class="Keyword">proc</span> <a href="#duckdb_table_function_set_function%2Cduckdb_table_function%2Cduckdb_table_function_t"><span class="Identifier">duckdb_table_function_set_function</span></a><span class="Other">(</span><span class="Identifier">table_function</span><span class="Other">:</span> <a href="#duckdb_table_function"><span class="Identifier">duckdb_table_function</span></a><span class="Other">;</span>
+                                        <span class="Identifier">function</span><span class="Other">:</span> <a href="#duckdb_table_function_t"><span class="Identifier">duckdb_table_function_t</span></a><span class="Other">)</span> {.
+    <span class="Identifier">importc</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
@@ -6744,10 +6965,10 @@
 
 </div>
 <div id="duckdb_table_function_set_init-procs-all">
-  <div id="duckdb_table_function_set_init,duckdb_table_function,pointer">
-  <dt><pre><span class="Keyword">proc</span> <a href="#duckdb_table_function_set_init%2Cduckdb_table_function%2Cpointer"><span class="Identifier">duckdb_table_function_set_init</span></a><span class="Other">(</span><span class="Identifier">table_function</span><span class="Other">:</span> <a href="#duckdb_table_function"><span class="Identifier">duckdb_table_function</span></a><span class="Other">;</span>
-                                    <span class="Identifier">init</span><span class="Other">:</span> <span class="Identifier">pointer</span><span class="Other">)</span> {.<span class="Identifier">importc</span><span class="Other">,</span>
-    <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <div id="duckdb_table_function_set_init,duckdb_table_function,duckdb_table_function_init_t">
+  <dt><pre><span class="Keyword">proc</span> <a href="#duckdb_table_function_set_init%2Cduckdb_table_function%2Cduckdb_table_function_init_t"><span class="Identifier">duckdb_table_function_set_init</span></a><span class="Other">(</span><span class="Identifier">table_function</span><span class="Other">:</span> <a href="#duckdb_table_function"><span class="Identifier">duckdb_table_function</span></a><span class="Other">;</span>
+                                    <span class="Identifier">init</span><span class="Other">:</span> <a href="#duckdb_table_function_init_t"><span class="Identifier">duckdb_table_function_init_t</span></a><span class="Other">)</span> {.
+    <span class="Identifier">importc</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
@@ -6757,10 +6978,10 @@
 
 </div>
 <div id="duckdb_table_function_set_local_init-procs-all">
-  <div id="duckdb_table_function_set_local_init,duckdb_table_function,pointer">
-  <dt><pre><span class="Keyword">proc</span> <a href="#duckdb_table_function_set_local_init%2Cduckdb_table_function%2Cpointer"><span class="Identifier">duckdb_table_function_set_local_init</span></a><span class="Other">(</span><span class="Identifier">table_function</span><span class="Other">:</span> <a href="#duckdb_table_function"><span class="Identifier">duckdb_table_function</span></a><span class="Other">;</span>
-    <span class="Identifier">init</span><span class="Other">:</span> <span class="Identifier">pointer</span><span class="Other">)</span> {.<span class="Identifier">importc</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
-                     <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <div id="duckdb_table_function_set_local_init,duckdb_table_function,duckdb_table_function_init_t">
+  <dt><pre><span class="Keyword">proc</span> <a href="#duckdb_table_function_set_local_init%2Cduckdb_table_function%2Cduckdb_table_function_init_t"><span class="Identifier">duckdb_table_function_set_local_init</span></a><span class="Other">(</span><span class="Identifier">table_function</span><span class="Other">:</span> <a href="#duckdb_table_function"><span class="Identifier">duckdb_table_function</span></a><span class="Other">;</span>
+    <span class="Identifier">init</span><span class="Other">:</span> <a href="#duckdb_table_function_init_t"><span class="Identifier">duckdb_table_function_init_t</span></a><span class="Other">)</span> {.<span class="Identifier">importc</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;duckdb.h&quot;</span><span class="Other">,</span>
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
@@ -7216,6 +7437,282 @@
 </div>
 
 </div>
+<div id="isNil-procs-all">
+  <div id="isNil,duckdb_aggregate_function">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_aggregate_function"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_aggregate_function"><span class="Identifier">duckdb_aggregate_function</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_aggregate_function_set">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_aggregate_function_set"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_aggregate_function_set"><span class="Identifier">duckdb_aggregate_function_set</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_aggregate_state">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_aggregate_state"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_aggregate_state"><span class="Identifier">duckdb_aggregate_state</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_appender">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_appender"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_appender"><span class="Identifier">duckdb_appender</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_arrow">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_arrow"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_arrow"><span class="Identifier">duckdb_arrow</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_arrow_array">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_arrow_array"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_arrow_array"><span class="Identifier">duckdb_arrow_array</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_arrow_schema">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_arrow_schema"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_arrow_schema"><span class="Identifier">duckdb_arrow_schema</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_arrow_stream">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_arrow_stream"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_arrow_stream"><span class="Identifier">duckdb_arrow_stream</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_bind_info">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_bind_info"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_bind_info"><span class="Identifier">duckdb_bind_info</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+                                        <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_cast_function">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_cast_function"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_cast_function"><span class="Identifier">duckdb_cast_function</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_client_context">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_client_context"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_client_context"><span class="Identifier">duckdb_client_context</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_config">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_config"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_config"><span class="Identifier">duckdb_config</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_connection">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_connection"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_connection"><span class="Identifier">duckdb_connection</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_data_chunk">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_data_chunk"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_data_chunk"><span class="Identifier">duckdb_data_chunk</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_database">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_database"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_database"><span class="Identifier">duckdb_database</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_extracted_statements">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_extracted_statements"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_extracted_statements"><span class="Identifier">duckdb_extracted_statements</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_function_info">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_function_info"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_function_info"><span class="Identifier">duckdb_function_info</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_init_info">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_init_info"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_init_info"><span class="Identifier">duckdb_init_info</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+                                        <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_instance_cache">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_instance_cache"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_instance_cache"><span class="Identifier">duckdb_instance_cache</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_logical_type">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_logical_type"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_logical_type"><span class="Identifier">duckdb_logical_type</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_pending_result">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_pending_result"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_pending_result"><span class="Identifier">duckdb_pending_result</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_prepared_statement">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_prepared_statement"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_prepared_statement"><span class="Identifier">duckdb_prepared_statement</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_profiling_info">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_profiling_info"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_profiling_info"><span class="Identifier">duckdb_profiling_info</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_replacement_scan_info">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_replacement_scan_info"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_replacement_scan_info"><span class="Identifier">duckdb_replacement_scan_info</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_scalar_function">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_scalar_function"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_scalar_function"><span class="Identifier">duckdb_scalar_function</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_scalar_function_set">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_scalar_function_set"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_scalar_function_set"><span class="Identifier">duckdb_scalar_function_set</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_selection_vector">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_selection_vector"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_selection_vector"><span class="Identifier">duckdb_selection_vector</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_table_description">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_table_description"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_table_description"><span class="Identifier">duckdb_table_description</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_table_function">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_table_function"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_table_function"><span class="Identifier">duckdb_table_function</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_value">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_value"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_value"><span class="Identifier">duckdb_value</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="isNil,duckdb_vector">
+  <dt><pre><span class="Keyword">proc</span> <a href="#isNil%2Cduckdb_vector"><span class="Identifier">isNil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="#duckdb_vector"><span class="Identifier">duckdb_vector</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+
+</div>
 
   </dl>
 </div>
@@ -7226,7 +7723,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2026-08-06 15:26:45 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2026-10-22 14:34:57 UTC</small>
       </div>
     </div>
   </div>
