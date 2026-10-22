@@ -8,11 +8,11 @@ var dbCon: DuckDBConnection
 suite "database basics":
   test "can open database":
     db = duckdb.open("duckdb_test.db")
-    check db != nil
+    check not isNil(db)
 
   test "can connect to database":
     dbCon = db.connect()
-    check dbCon != nil
+    check not isNil(dbCon)
 
 suite "queries":
   test "create table users":

@@ -53,22 +53,35 @@ type
     DUCKDB_TYPE_UNION = 28,
     DUCKDB_TYPE_BIT = 29,
     DUCKDB_TYPE_TIME_TZ = 30,
-    DUCKDB_TYPE_TIMESTAMP_TZ = 31
+    DUCKDB_TYPE_TIMESTAMP_TZ = 31,
+    DUCKDB_TYPE_ANY = 34,
+    DUCKDB_TYPE_BIGNUM = 35,
+    DUCKDB_TYPE_SQLNULL = 36,
+    DUCKDB_TYPE_STRING_LITERAL = 37,
+    DUCKDB_TYPE_INTEGER_LITERAL = 38,
+    DUCKDB_TYPE_TIME_NS = 39,
+    DUCKDB_TYPE_GEOMETRY = 40,
+    DUCKDB_TYPE_VARIANT = 41
 
 {.push, importc, header:"duckdb.h", dynlib: "duckdb." & ext.}
 type
-  duckdb_instance_cache* = pointer
-  duckdb_database* = pointer
-  duckdb_config* = pointer
-  duckdb_connection* = pointer
-  duckdb_client_context* = pointer
-  duckdb_value* = pointer
-  
+  duckdb_instance_cache* {.importc: "duckdb_instance_cache", header: "duckdb.h".} = object
+  duckdb_database* {.importc: "duckdb_database", header: "duckdb.h".} = object
+  duckdb_config* {.importc: "duckdb_config", header: "duckdb.h".} = object
+  duckdb_connection* {.importc: "duckdb_connection", header: "duckdb.h".} = object
+  duckdb_client_context* {.importc: "duckdb_client_context", header: "duckdb.h".} = object
+  duckdb_value* {.importc: "duckdb_value", header: "duckdb.h".} = object
+  duckdb_init_info* {.importc: "duckdb_init_info", header: "duckdb.h".} = object
+  duckdb_vector* {.importc: "duckdb_vector", header: "duckdb.h".} = object
+
   duckdb_state* = cint
 
-  duckdb_query_progress_type* = cint
+  duckdb_query_progress_type* {.importc: "duckdb_query_progress_type", header: "duckdb.h", bycopy.} = object
+    percentage*: float64
+    rows_processed*: uint64
+    total_rows_to_process*: uint64
   idx_t* = uint64
-  duckdb_data_chunk* = pointer
+  duckdb_data_chunk* {.importc: "duckdb_data_chunk", header: "duckdb.h".} = object
   duckdb_result_type* = cint
 
 proc duckdb_create_instance_cache*(): duckdb_instance_cache
@@ -96,10 +109,22 @@ proc duckdb_destroy_config*(config: ptr duckdb_config)
 
 # Query
 type
-  duckdb_result* {.bycopy.} = object # opaque struct, actual fields not needed for FFI
+  duckdb_column* {.importc: "duckdb_column", header: "duckdb.h", bycopy.} = object
+    deprecated_data*: pointer
+    deprecated_nullmask*: ptr bool
+    deprecated_type*: duckdb_type
+    deprecated_name*: cstring
+    internal_data*: pointer
+  duckdb_result* {.importc: "duckdb_result", header: "duckdb.h", bycopy.} = object
+    deprecated_column_count*: idx_t
+    deprecated_row_count*: idx_t
+    deprecated_rows_changed*: idx_t
+    deprecated_columns*: ptr duckdb_column
+    deprecated_error_message*: cstring
+    internal_data*: pointer
   duckdb_type* = DuckDBType
   duckdb_statement_type* = cint
-  duckdb_logical_type* = pointer
+  duckdb_logical_type* {.importc: "duckdb_logical_type", header: "duckdb.h".} = object
   duckdb_error_type* = cint
 
 proc duckdb_query*(connection: duckdb_connection, query: cstring, out_result: ptr duckdb_result): duckdb_state
@@ -121,33 +146,36 @@ proc duckdb_result_chunk_count*(result: duckdb_result): idx_t
 proc duckdb_result_return_type*(result: duckdb_result): duckdb_result_type
 
 type
-  duckdb_hugeint* {.bycopy.} = object
+  duckdb_hugeint* {.importc: "duckdb_hugeint", header: "duckdb.h", bycopy.} = object
     lower*: uint64
     upper*: int64
-  
-  duckdb_uhugeint* {.bycopy.} = object
+
+  duckdb_uhugeint* {.importc: "duckdb_uhugeint", header: "duckdb.h", bycopy.} = object
     lower*: uint64
     upper*: uint64
-  
-  duckdb_decimal* {.bycopy.} = object
-    value*: duckdb_hugeint
+
+  duckdb_decimal* {.importc: "duckdb_decimal", header: "duckdb.h", bycopy.} = object
     width*: uint8
     scale*: uint8
-  
-  duckdb_date* = int32
-  duckdb_time* = int64
-  duckdb_timestamp* = int64
+    value*: duckdb_hugeint
 
-  duckdb_interval* {.bycopy.} = object
+  duckdb_date* {.importc: "duckdb_date", header: "duckdb.h", bycopy.} = object
+    days*: int32
+  duckdb_time* {.importc: "duckdb_time", header: "duckdb.h", bycopy.} = object
+    micros*: int64
+  duckdb_timestamp* {.importc: "duckdb_timestamp", header: "duckdb.h", bycopy.} = object
+    micros*: int64
+
+  duckdb_interval* {.importc: "duckdb_interval", header: "duckdb.h", bycopy.} = object
     months*: int32
     days*: int32
     micros*: int64
-  
-  duckdb_string* {.bycopy.} = object
+
+  duckdb_string* {.importc: "duckdb_string", header: "duckdb.h", bycopy.} = object
     data*: cstring
     size*: uint32
 
-  duckdb_blob* {.bycopy.} = object
+  duckdb_blob* {.importc: "duckdb_blob", header: "duckdb.h", bycopy.} = object
     data*: pointer
     size*: uint64
 
@@ -177,8 +205,10 @@ proc duckdb_value_blob*(result: ptr duckdb_result, col, row: idx_t): duckdb_blob
 proc duckdb_value_is_null*(result: ptr duckdb_result, col, row: idx_t): bool
 
 type
-  duckdb_string_t* = object
-    data*: array[12, byte] # DuckDB inlines short strings, 12 bytes is typical for duckdb_string_t
+  duckdb_string_t* {.importc: "duckdb_string_t", header: "duckdb.h", bycopy.} = object
+    # 16-byte inline union (pointer{len,prefix,ptr} | inlined{len,data[12]}).
+    # Kept as raw bytes: use duckdb_string_t_* helpers, do not access directly.
+    data*: array[16, byte]
 
 proc duckdb_malloc*(size: csize_t): pointer
 proc duckdb_free*(`ptr`: pointer)
@@ -188,28 +218,31 @@ proc duckdb_string_t_length*(str: duckdb_string_t): uint32
 proc duckdb_string_t_data*(str: ptr duckdb_string_t): cstring
 
 type
-  duckdb_date_struct* = object
+  duckdb_date_struct* {.importc: "duckdb_date_struct", header: "duckdb.h", bycopy.} = object
     year*: int32
     month*: int8
     day*: int8
-  duckdb_time_struct* = object
+  duckdb_time_struct* {.importc: "duckdb_time_struct", header: "duckdb.h", bycopy.} = object
     hour*: int8
     min*: int8
     sec*: int8
     micros*: int32
-  duckdb_time_tz* = int64
-  duckdb_time_tz_struct* = object
-    hour*: int8
-    min*: int8
-    sec*: int8
-    micros*: int32
+  duckdb_time_ns* {.importc: "duckdb_time_ns", header: "duckdb.h", bycopy.} = object
+    nanos*: int64
+  duckdb_time_tz* {.importc: "duckdb_time_tz", header: "duckdb.h", bycopy.} = object
+    bits*: uint64
+  duckdb_time_tz_struct* {.importc: "duckdb_time_tz_struct", header: "duckdb.h", bycopy.} = object
+    time*: duckdb_time_struct
     offset*: int32
-  duckdb_timestamp_struct* = object
+  duckdb_timestamp_struct* {.importc: "duckdb_timestamp_struct", header: "duckdb.h", bycopy.} = object
     date*: duckdb_date_struct
     time*: duckdb_time_struct
-  duckdb_timestamp_s* = int64
-  duckdb_timestamp_ms* = int64
-  duckdb_timestamp_ns* = int64
+  duckdb_timestamp_s* {.importc: "duckdb_timestamp_s", header: "duckdb.h", bycopy.} = object
+    seconds*: int64
+  duckdb_timestamp_ms* {.importc: "duckdb_timestamp_ms", header: "duckdb.h", bycopy.} = object
+    millis*: int64
+  duckdb_timestamp_ns* {.importc: "duckdb_timestamp_ns", header: "duckdb.h", bycopy.} = object
+    nanos*: int64
 
 proc duckdb_from_date*(date: duckdb_date): duckdb_date_struct
 proc duckdb_to_date*(date: duckdb_date_struct): duckdb_date
@@ -238,7 +271,7 @@ proc duckdb_double_to_decimal*(val: float64, width: uint8, scale: uint8): duckdb
 proc duckdb_decimal_to_double*(val: duckdb_decimal): float64
 
 type
-  duckdb_prepared_statement* = pointer
+  duckdb_prepared_statement* {.importc: "duckdb_prepared_statement", header: "duckdb.h".} = object
 
 #
 # Prepared Statements
@@ -293,7 +326,7 @@ proc duckdb_execute_prepared*(prepared_statement: duckdb_prepared_statement, out
 proc duckdb_execute_prepared_streaming*(prepared_statement: duckdb_prepared_statement, out_result: ptr duckdb_result): duckdb_state
 
 type
-  duckdb_extracted_statements* = pointer
+  duckdb_extracted_statements* {.importc: "duckdb_extracted_statements", header: "duckdb.h".} = object
 
 # Extract Statements
 proc duckdb_extract_statements*(
@@ -318,10 +351,16 @@ proc duckdb_destroy_extracted*(
 )
 
 type
-  duckdb_pending_result* = pointer
+  duckdb_pending_result* {.importc: "duckdb_pending_result", header: "duckdb.h".} = object
   duckdb_pending_state* = cint
   duckdb_varint* = duckdb_hugeint
-  duckdb_bit* = uint8
+  duckdb_bit* {.importc: "duckdb_bit", header: "duckdb.h", bycopy.} = object
+    data*: ptr uint8
+    size*: idx_t
+  duckdb_bignum* {.importc: "duckdb_bignum", header: "duckdb.h", bycopy.} = object
+    data*: ptr uint8
+    size*: idx_t
+    is_negative*: bool
 
 #
 # Pending Result Interface
@@ -422,13 +461,15 @@ proc duckdb_validity_set_row_valid*(validity: ptr uint64, row: idx_t)
 
 # Scalar Functions
 type
-  duckdb_scalar_function* = pointer
-  duckdb_scalar_function_set* = pointer
-  duckdb_bind_info* = pointer
-  duckdb_function_info* = pointer
+  duckdb_scalar_function* {.importc: "duckdb_scalar_function", header: "duckdb.h".} = object
+  duckdb_scalar_function_set* {.importc: "duckdb_scalar_function_set", header: "duckdb.h".} = object
+  duckdb_bind_info* {.importc: "duckdb_bind_info", header: "duckdb.h".} = object
+  duckdb_function_info* {.importc: "duckdb_function_info", header: "duckdb.h".} = object
   duckdb_delete_callback_t* = proc (p: pointer) {.cdecl.}
+  duckdb_copy_callback_t* = proc (p: pointer): pointer {.cdecl.}
   duckdb_scalar_function_bind_t* = proc (info: duckdb_bind_info) {.cdecl.}
-  duckdb_scalar_function_t* = proc (info: duckdb_function_info) {.cdecl.}
+  duckdb_scalar_function_init_t* = proc (info: duckdb_init_info) {.cdecl.}
+  duckdb_scalar_function_t* = proc (info: duckdb_function_info, input: duckdb_data_chunk, output: duckdb_vector) {.cdecl.}
 
 proc duckdb_create_scalar_function*(): duckdb_scalar_function
 proc duckdb_destroy_scalar_function*(scalar_function: ptr duckdb_scalar_function)
@@ -455,7 +496,7 @@ proc duckdb_register_scalar_function_set*(con: duckdb_connection, set: duckdb_sc
 
 # Selection Vector Interface
 type
-  duckdb_selection_vector* = pointer
+  duckdb_selection_vector* {.importc: "duckdb_selection_vector", header: "duckdb.h".} = object
   sel_t* = uint32
 
 proc duckdb_create_selection_vector*(size: idx_t): duckdb_selection_vector
@@ -464,14 +505,15 @@ proc duckdb_selection_vector_get_data_ptr*(vector: duckdb_selection_vector): ptr
 
 # Aggregate Functions
 type
-  duckdb_aggregate_function* = pointer
-  duckdb_aggregate_function_set* = pointer
-  duckdb_aggregate_state_size* = proc (): csize_t {.cdecl.}
-  duckdb_aggregate_init_t* = proc () {.cdecl.}
-  duckdb_aggregate_update_t* = proc () {.cdecl.}
-  duckdb_aggregate_combine_t* = proc () {.cdecl.}
-  duckdb_aggregate_finalize_t* = proc () {.cdecl.}
-  duckdb_aggregate_destroy_t* = proc (p: pointer) {.cdecl.}
+  duckdb_aggregate_function* {.importc: "duckdb_aggregate_function", header: "duckdb.h".} = object
+  duckdb_aggregate_function_set* {.importc: "duckdb_aggregate_function_set", header: "duckdb.h".} = object
+  duckdb_aggregate_state* {.importc: "duckdb_aggregate_state", header: "duckdb.h".} = object
+  duckdb_aggregate_state_size* = proc (info: duckdb_function_info): idx_t {.cdecl.}
+  duckdb_aggregate_init_t* = proc (info: duckdb_function_info, state: duckdb_aggregate_state) {.cdecl.}
+  duckdb_aggregate_update_t* = proc (info: duckdb_function_info, input: duckdb_data_chunk, states: ptr duckdb_aggregate_state) {.cdecl.}
+  duckdb_aggregate_combine_t* = proc (info: duckdb_function_info, source: ptr duckdb_aggregate_state, target: ptr duckdb_aggregate_state, count: idx_t) {.cdecl.}
+  duckdb_aggregate_finalize_t* = proc (info: duckdb_function_info, source: ptr duckdb_aggregate_state, result: duckdb_vector, count: idx_t, offset: idx_t) {.cdecl.}
+  duckdb_aggregate_destroy_t* = proc (states: ptr duckdb_aggregate_state, count: idx_t) {.cdecl.}
 
 proc duckdb_create_aggregate_function*(): duckdb_aggregate_function
 proc duckdb_destroy_aggregate_function*(aggregate_function: ptr duckdb_aggregate_function)
@@ -494,7 +536,10 @@ proc duckdb_register_aggregate_function_set*(con: duckdb_connection, set: duckdb
 # Table Functions
 #
 type
-  duckdb_table_function* = pointer
+  duckdb_table_function* {.importc: "duckdb_table_function", header: "duckdb.h".} = object
+  duckdb_table_function_bind_t* = proc (info: duckdb_bind_info) {.cdecl.}
+  duckdb_table_function_init_t* = proc (info: duckdb_init_info) {.cdecl.}
+  duckdb_table_function_t* = proc (info: duckdb_function_info, output: duckdb_data_chunk) {.cdecl.}
 
 proc duckdb_create_table_function*(): duckdb_table_function
 proc duckdb_destroy_table_function*(table_function: ptr duckdb_table_function)
@@ -502,12 +547,12 @@ proc duckdb_table_function_set_name*(table_function: duckdb_table_function, name
 proc duckdb_table_function_add_parameter*(table_function: duckdb_table_function, typ: duckdb_logical_type)
 proc duckdb_table_function_add_named_parameter*(table_function: duckdb_table_function, name: cstring, typ: duckdb_logical_type)
 proc duckdb_table_function_set_extra_info*(table_function: duckdb_table_function, extra_info: pointer, destroy: duckdb_delete_callback_t)
-proc duckdb_table_function_set_bind*(table_function: duckdb_table_function, `bind`: pointer)
-proc duckdb_table_function_set_init*(table_function: duckdb_table_function, init: pointer)
-proc duckdb_table_function_set_local_init*(table_function: duckdb_table_function, init: pointer)
-proc duckdb_table_function_set_function*(table_function: duckdb_table_function, fn: pointer)
+proc duckdb_table_function_set_bind*(table_function: duckdb_table_function, `bind`: duckdb_table_function_bind_t)
+proc duckdb_table_function_set_init*(table_function: duckdb_table_function, init: duckdb_table_function_init_t)
+proc duckdb_table_function_set_local_init*(table_function: duckdb_table_function, init: duckdb_table_function_init_t)
+proc duckdb_table_function_set_function*(table_function: duckdb_table_function, function: duckdb_table_function_t)
 proc duckdb_table_function_supports_projection_pushdown*(table_function: duckdb_table_function, pushdown: bool)
-proc duckdb_register_table_function*(con: duckdb_connection, fn: duckdb_table_function): duckdb_state
+proc duckdb_register_table_function*(con: duckdb_connection, function: duckdb_table_function): duckdb_state
 
 # Table Function Bind
 proc duckdb_bind_get_extra_info*(info: duckdb_bind_info): pointer
@@ -522,9 +567,6 @@ proc duckdb_bind_set_error*(info: duckdb_bind_info, error: cstring)
 #
 # Table Function Init
 #
-type
-  duckdb_init_info* = pointer
-
 proc duckdb_init_get_extra_info*(info: duckdb_init_info): pointer
 proc duckdb_init_get_bind_data*(info: duckdb_init_info): pointer
 proc duckdb_init_set_init_data*(info: duckdb_init_info, init_data: pointer, destroy: duckdb_delete_callback_t)
@@ -546,8 +588,8 @@ proc duckdb_function_set_error*(info: duckdb_function_info, error: cstring)
 # Replacement Scans
 #
 type
-  duckdb_replacement_scan_info* = pointer
-  duckdb_replacement_callback_t* = proc (db: duckdb_database, info: duckdb_replacement_scan_info, extra_data: pointer) {.cdecl.}
+  duckdb_replacement_scan_info* {.importc: "duckdb_replacement_scan_info", header: "duckdb.h".} = object
+  duckdb_replacement_callback_t* = proc (info: duckdb_replacement_scan_info, table_name: cstring, data: pointer) {.cdecl.}
 
 proc duckdb_add_replacement_scan*(db: duckdb_database, replacement: duckdb_replacement_callback_t, extra_data: pointer, delete_callback: duckdb_delete_callback_t)
 proc duckdb_replacement_scan_set_function_name*(info: duckdb_replacement_scan_info, function_name: cstring)
@@ -558,7 +600,7 @@ proc duckdb_replacement_scan_set_error*(info: duckdb_replacement_scan_info, erro
 # Profiling Info
 #
 type
-  duckdb_profiling_info* = pointer
+  duckdb_profiling_info* {.importc: "duckdb_profiling_info", header: "duckdb.h".} = object
 
 proc duckdb_get_profiling_info*(connection: duckdb_connection): duckdb_profiling_info
 proc duckdb_profiling_info_get_value*(info: duckdb_profiling_info, key: cstring): duckdb_value
@@ -570,7 +612,7 @@ proc duckdb_profiling_info_get_child*(info: duckdb_profiling_info, index: idx_t)
 # Appender
 #
 type
-  duckdb_appender* = pointer
+  duckdb_appender* {.importc: "duckdb_appender", header: "duckdb.h".} = object
 
 proc duckdb_appender_create*(connection: duckdb_connection, schema: cstring, table: cstring, out_appender: ptr duckdb_appender): duckdb_state
 proc duckdb_appender_create_ext*(connection: duckdb_connection, catalog: cstring, schema: cstring, table: cstring, out_appender: ptr duckdb_appender): duckdb_state
@@ -614,7 +656,7 @@ proc duckdb_append_data_chunk*(appender: duckdb_appender, chunk: duckdb_data_chu
 # Table Description
 #
 type
-  duckdb_table_description* = pointer
+  duckdb_table_description* {.importc: "duckdb_table_description", header: "duckdb.h".} = object
 
 proc duckdb_table_description_create*(connection: duckdb_connection, schema: cstring, table: cstring, out_desc: ptr duckdb_table_description): duckdb_state
 proc duckdb_table_description_create_ext*(connection: duckdb_connection, catalog: cstring, schema: cstring, table: cstring, out_desc: ptr duckdb_table_description): duckdb_state
@@ -627,10 +669,10 @@ proc duckdb_table_description_get_column_name*(table_description: duckdb_table_d
 # Arrow Interface
 #
 type
-  duckdb_arrow* = pointer
-  duckdb_arrow_schema* = pointer
-  duckdb_arrow_array* = pointer
-  duckdb_arrow_stream* = pointer
+  duckdb_arrow* {.importc: "duckdb_arrow", header: "duckdb.h".} = object
+  duckdb_arrow_schema* {.importc: "duckdb_arrow_schema", header: "duckdb.h".} = object
+  duckdb_arrow_array* {.importc: "duckdb_arrow_array", header: "duckdb.h".} = object
+  duckdb_arrow_stream* {.importc: "duckdb_arrow_stream", header: "duckdb.h".} = object
 
 proc duckdb_query_arrow*(connection: duckdb_connection, query: cstring, out_result: ptr duckdb_arrow): duckdb_state
 proc duckdb_query_arrow_schema*(result: duckdb_arrow, out_schema: ptr duckdb_arrow_schema): duckdb_state
@@ -642,7 +684,7 @@ proc duckdb_arrow_row_count*(result: duckdb_arrow): idx_t
 proc duckdb_arrow_rows_changed*(result: duckdb_arrow): idx_t
 proc duckdb_query_arrow_error*(result: duckdb_arrow): cstring
 proc duckdb_destroy_arrow*(result: ptr duckdb_arrow)
-proc duckdb_destroy_arrow_stream*(stream_p: duckdb_arrow_stream)
+proc duckdb_destroy_arrow_stream*(stream_p: ptr duckdb_arrow_stream)
 proc duckdb_execute_prepared_arrow*(prepared_statement: duckdb_prepared_statement, out_result: ptr duckdb_arrow): duckdb_state
 proc duckdb_arrow_scan*(connection: duckdb_connection, table_name: cstring, arrow: duckdb_arrow_stream): duckdb_state
 proc duckdb_arrow_array_scan*(connection: duckdb_connection, table_name: cstring, arrow_schema: duckdb_arrow_schema, arrow_array: duckdb_arrow_array, out_stream: ptr duckdb_arrow_stream): duckdb_state
@@ -670,16 +712,15 @@ proc duckdb_fetch_chunk*(result: duckdb_result): duckdb_data_chunk
 # Cast Functions
 #
 type
-  duckdb_cast_function* = pointer
+  duckdb_cast_function* {.importc: "duckdb_cast_function", header: "duckdb.h".} = object
   duckdb_cast_mode* = cint
-  duckdb_cast_function_t* = proc () {.cdecl.}
-  duckdb_vector* = pointer
+  duckdb_cast_function_t* = proc (info: duckdb_function_info, count: idx_t, input: duckdb_vector, output: duckdb_vector): bool {.cdecl.}
 
 proc duckdb_create_cast_function*(): duckdb_cast_function
 proc duckdb_cast_function_set_source_type*(cast_function: duckdb_cast_function, source_type: duckdb_logical_type)
 proc duckdb_cast_function_set_target_type*(cast_function: duckdb_cast_function, target_type: duckdb_logical_type)
 proc duckdb_cast_function_set_implicit_cast_cost*(cast_function: duckdb_cast_function, cost: int64)
-proc duckdb_cast_function_set_function*(cast_function: duckdb_cast_function, fn: duckdb_cast_function_t)
+proc duckdb_cast_function_set_function*(cast_function: duckdb_cast_function, function: duckdb_cast_function_t)
 proc duckdb_cast_function_set_extra_info*(cast_function: duckdb_cast_function, extra_info: pointer, destroy: duckdb_delete_callback_t)
 proc duckdb_cast_function_get_extra_info*(info: duckdb_function_info): pointer
 proc duckdb_cast_function_get_cast_mode*(info: duckdb_function_info): duckdb_cast_mode
@@ -689,3 +730,37 @@ proc duckdb_register_cast_function*(con: duckdb_connection, cast_function: duckd
 proc duckdb_destroy_cast_function*(cast_function: ptr duckdb_cast_function)
 
 {.pop.}
+
+# Nil helpers: opaque handles are imported structs used as pointers in C.
+# `cast[pointer]` recovers the underlying pointer for nil checks.
+proc isNil*(x: duckdb_instance_cache): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_database): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_config): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_connection): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_client_context): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_value): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_data_chunk): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_logical_type): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_prepared_statement): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_extracted_statements): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_pending_result): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_scalar_function): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_scalar_function_set): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_bind_info): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_function_info): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_selection_vector): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_aggregate_function): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_aggregate_function_set): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_aggregate_state): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_table_function): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_init_info): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_replacement_scan_info): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_profiling_info): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_appender): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_table_description): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_arrow): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_arrow_schema): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_arrow_array): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_arrow_stream): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_cast_function): bool {.inline.} = cast[pointer](x) == nil
+proc isNil*(x: duckdb_vector): bool {.inline.} = cast[pointer](x) == nil

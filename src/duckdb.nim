@@ -70,8 +70,8 @@ proc connect*(db: DuckDBInstance): DuckDBConnection =
     raise newException(DuckDBConnectionError, "Failed to connect to database")
   return conn
 
-proc close*(db: var DuckDBConnection) =
-  ## Close a database
+proc close*(db: var DuckDBInstance) =
+  ## Close a database instance.
   duckdb_close(db.addr)
 
 proc disconnect*(conn: var DuckDBConnection) =
