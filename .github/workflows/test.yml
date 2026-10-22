@@ -22,6 +22,7 @@ jobs:
             curl -fsSL -o /tmp/libduckdb.zip "https://install.duckdb.org/v${DUCKDB_VERSION}/libduckdb-linux-amd64.zip"
             rm -rf /tmp/duckdb_lib && mkdir -p /tmp/duckdb_lib
             unzip -q -o /tmp/libduckdb.zip -d /tmp/duckdb_lib
+            sudo mkdir -p /usr/local/include /usr/local/lib
             sudo cp /tmp/duckdb_lib/duckdb.h /tmp/duckdb_lib/duckdb.hpp /usr/local/include/
             sudo cp /tmp/duckdb_lib/libduckdb.so /usr/local/lib/
             sudo ldconfig
@@ -31,6 +32,7 @@ jobs:
             rm -rf /tmp/duckdb_lib && mkdir -p /tmp/duckdb_lib
             unzip -q -o /tmp/libduckdb.zip -d /tmp/duckdb_lib
             xattr -c /tmp/duckdb_lib/libduckdb.dylib || true
+            sudo mkdir -p /usr/local/include /usr/local/lib
             sudo cp /tmp/duckdb_lib/duckdb.h /tmp/duckdb_lib/duckdb.hpp /usr/local/include/
             sudo cp /tmp/duckdb_lib/libduckdb.dylib /usr/local/lib/
             echo "DYLD_LIBRARY_PATH=/usr/local/lib${DYLD_LIBRARY_PATH:+:${DYLD_LIBRARY_PATH}}" >> "$GITHUB_ENV"
