@@ -18,7 +18,12 @@ jobs:
         DUCKDB_VERSION="1.5.2"
         case "${RUNNER_OS}" in
           Linux)
-            sudo apt-get install -y unzip
+            sudo apt-get update -y
+            sudo apt-get install -y unzip gcc-14 g++-14
+            sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 100 \
+              --slave /usr/bin/g++ g++ /usr/bin/g++-14
+            gcc --version
+
             curl -fsSL -o /tmp/libduckdb.zip "https://install.duckdb.org/v${DUCKDB_VERSION}/libduckdb-linux-amd64.zip"
             rm -rf /tmp/duckdb_lib && mkdir -p /tmp/duckdb_lib
             unzip -q -o /tmp/libduckdb.zip -d /tmp/duckdb_lib
